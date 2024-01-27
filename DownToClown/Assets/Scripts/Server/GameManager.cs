@@ -52,20 +52,20 @@ public class GameManager : MonoBehaviour
 
         UnityEngine.TextAsset gameDataAsset = Resources.Load<UnityEngine.TextAsset>("gameData");
         gameData = JsonConvert.DeserializeObject<GameData>(gameDataAsset.text);
-        availiablePrompts = new List<string>(gameData.Prompts);
+        availiablePrompts = Enumerable.Range(0, gameData.Prompts.Count);
 
         InitializeNewGame();
     }
 
     public static readonly int NUM_PROMPT_OPTIONS = 5;
-    public List<string> GetPromptOptions()
+    public List<int> GetPromptOptions()
     {
-        return GenerateRandomSubset<string>(availiablePrompts, NUM_PROMPT_OPTIONS);
+        return GenerateRandomSubset<int>(availiablePrompts, NUM_PROMPT_OPTIONS);
     }
 
-    public void ChoosePromt(string prompt)
+    public void ChoosePromt(int promptIndex)
     {
-        availiablePrompts.Remove(prompt);
+        availiablePrompts.Remove(promptIndex);
     }
 
     public void InitializeNewGame()

@@ -25,6 +25,30 @@ public class Round
 {
     public Dictionary<int, int> roles = new();
 
+    public int GetHerald()
+    {
+        foreach (KeyValuePair<int, int> kvp in roles)
+        {
+            if (kvp.Value == 0)
+            {
+                return kvp.Key;
+            }
+        }
+    }
+
+    public List<int> GetClowns()
+    {
+        List<int> clowns = new();
+        foreach (KeyValuePair<int, int> kvp in roles)
+        {
+            if (kvp.Value != 0)
+            {
+                clowns.add(kvp.Key);
+            }
+        }
+        return clowns;
+    }
+
     public List<int> GetUsedCharacters()
     {
         return roles.Values.ToList();
