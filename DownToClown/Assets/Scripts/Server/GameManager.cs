@@ -70,13 +70,13 @@ public class GameManager : MonoBehaviour
                 if (!initedRoles)
                 {
                     int numClowns = 6;
-                    ClownShuffler.SetNamesAndClowns(airConsole.GetControllerDeviceIds(), GenerateRandomSubset(numClowns-1, airConsole.GetControllerDeviceIds().Count));
 
-                    
+                    ClownShuffler.SetNamesAndClowns(airConsole.GetControllerDeviceIds(), GenerateRandomSubset(numClowns-1, airConsole.GetControllerDeviceIds().Count));
+               
                 }
+
                 InitializeCheckRole();
                 break;
-
             case GameState.WaitForPromptPicking:
                 InitializeWaitForPromptPicking();
                 break;
@@ -99,15 +99,22 @@ public class GameManager : MonoBehaviour
 
         //TODO:: WE NEED TO NOT JUST SEND ARBITRARY INDEX
 
+        var currentRoles = ClownShuffler.rounds[ClownShuffler.currentRound].roles;
+
         for(int i = 0; i < deviceIDs.Count; i++)
         {
-            airConsole.Message(deviceIDs[i], new { msg_type = "roleAssignment", role_index = deviceIDs[i]});
+            airConsole.Message(deviceIDs[i], new { msg_type = "role_assignment", role_index = currentRoles[i]});
         }
+
     }
 
     void InitializeWaitForPromptPicking()
     {
         screenManager.SetScreen("waitForPromptPicking");
+
+        //find whoever is Herald, then continue
+
+
 
         //wait to receive
     }
@@ -151,7 +158,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("NO MESSAGE TYPE");
         }
 
-        if(msg_type == "ready")
+        if(msg_type == "switch_state")
         {
             InitializeState(GameState.CheckRole);
         }
