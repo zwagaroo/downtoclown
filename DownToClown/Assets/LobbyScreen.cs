@@ -17,22 +17,23 @@ public class LobbyScreen : GameScreen
     public override void Update()
     {
         //for use for debugging
-        //if(Input.GetKeyDown(KeyCode.Z)){
-        //    AddPlayer();
-        //}
+        if (Input.GetKeyDown(KeyCode.Z))
+                {
+                    AddPlayer();
+                }
 
-        //if (Input.GetKeyDown(KeyCode.X))
-        //{
-        //    RemovePlayer();
-        //}
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            RemovePlayer();
+        }
 
-        //if (Input.GetKeyDown(KeyCode.C))
-        //{
-        //    if (canStart)
-        //    {
-        //        BeginCountdown();
-        //    }
-        //}
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (canStart)
+            {
+                BeginCountdown();
+            }
+        }
 
         UpdateCountdown();
     }
