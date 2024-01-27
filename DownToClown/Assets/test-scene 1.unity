@@ -577,7 +577,7 @@ MonoBehaviour:
   androidTvGameVersion: 
   androidUIResizeMode: 0
   webViewLoadingSprite: {fileID: 0}
-  browserStartMode: 0
+  browserStartMode: 2
   devGameId: 
   LocalIpOverride: https://sports-frontpage-has-sympathy.trycloudflare.com
 --- !u!4 &635519550
