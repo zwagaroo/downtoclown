@@ -1,62 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<html>
 <head>
-  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-  <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.8.0.js"></script>
-  <style type="text/css">
-    /* the style sheet dictates what our elements (buttons, backgrounds etc.) will look like. */
-    #interact-button{
-        background-image: url("button.png");
-        position: absolute;
-        top: 20%;
-        left: 10%;
-        width: 80%;
-        height: 60%;
-        background-size: contain;
-        background-repeat: no-repeat;
-    }
-  </style>
-
-  <script type="text/javascript">
-
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Swiper</title>
+  
+  <script src="https://www.airconsole.com/api/airconsole-1.8.0.js"></script>
+  <script>
     var airconsole;
-
-    function App() {
-        /* JavaScript / Functionality. Add functions and evens here */
-        this.airconsole = new AirConsole({"orientation" : "portrait"});
-        // air_console.message(AirConsole.SCREEN, "How are you?");
-      /*
-       * Here we are adding support for mouse events manually.
-       * --> WE STRONGLY ENCOURAGE YOU TO USE THE AIRCONSOLE CONTROLS LIBRARY
-       * WHICH IS EVEN BETTER (BUT WE DONT WANT TO BLOAT THE CODE HERE).
-       * https://github.com/AirConsole/airconsole-controls/
-       *
-       * DO NOT USE ONCLICK HANDLERS.
-       * THEY ADD A 200MS DELAY!
-       */
-      if (!("ontouchstart" in document.createElement("div"))) {
-        var elements = document.getElementsByTagName("*");
-        for (var i = 0; i < elements.length; ++i) {
-          var element = elements[i];
-          var ontouchstart = element.getAttribute("ontouchstart");
-          if (ontouchstart) {
-            element.setAttribute("onmousedown", ontouchstart);
-          }
-          var ontouchend = element.getAttribute("ontouchend");
-          if (ontouchend) {
-            element.setAttribute("onmouseup", ontouchend);
-          }
-        }
-      }
+    function init() {
+      airconsole = new AirConsole({"orientation": "portrait"});
     }
-
-    App.prototype.sendMessageToScreen = function(msg) {
-        console.log("HELLO WORLD");
-        this.airconsole.message(AirConsole.SCREEN, {"action": msg});
-    };
   </script>
+
+  
+  <link rel="stylesheet" href="voting_view_style.css">
 </head>
-<body onload="window.app = new App()">
-  <div id="interact-button" ontouchstart="window.app.sendMessageToScreen('interact')"></div>
+
+<body onload="init()">
+  <ion-icon id="dislike" name="heart-dislike"></ion-icon>
+  <div id="swiper">
+    <!-- <div class="card" style="--i:0">
+      <img src="https://source.unsplash.com/random/1000x1000/?sky" alt="">
+    </div>
+    <div class="card" style="--i:1">
+      <img src="https://source.unsplash.com/random/1000x1000/?landscape" alt="">
+    </div>
+    <div class="card" style="--i:2">
+      <img src="https://source.unsplash.com/random/1000x1000/?ocean" alt="">
+    </div>
+    <div class="card" style="--i:3">
+      <img src="https://source.unsplash.com/random/1000x1000/?moutain" alt="">
+    </div>
+    <div class="card" style="--i:4">
+      <img src="https://source.unsplash.com/random/1000x1000/?forest" alt="">
+    </div> -->
+  </div>
+  <ion-icon id="like" name="heart"></ion-icon>
+  
+  <script src="card.js"></script>
+  <script src="voting_view_script.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
 </body>
+
 </html>
