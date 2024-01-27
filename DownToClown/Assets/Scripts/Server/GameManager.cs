@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
 
         UnityEngine.TextAsset gameDataAsset = Resources.Load<UnityEngine.TextAsset>("gameData");
         gameData = JsonConvert.DeserializeObject<GameData>(gameDataAsset.text);
-        availiablePrompts = Enumerable.Range(0, gameData.Prompts.Count).ToList();
+        availiablePrompts = Enumerable.Range(0, gameData.prompts.Count).ToList();
 
         InitializeNewGame();
     }

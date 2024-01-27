@@ -1,5 +1,5 @@
 {
-    "Prompts": [
+    "prompts": [
       "What are you passionate about?",
       "What's your idea of a perfect date?",
       "What's your favorite way to spend a weekend?",
@@ -12,5 +12,25 @@
       "What's your idea of a fun night out?",
       "What's something interesting about yourself?",
       "What's your favorite hobby or activity?"
+    ],
+    "characters": [
+      {
+        "id": 0,
+        "name": "Harold the herald",
+        "description": "He thought this was normal speed dating.",
+        "rule": "Read the messages sent to the screen.",
+        "iconImage": "herald_icon.png",
+        "descriptionImage": "herald_description.png",
+        "profileImage": "herald_profile.png"
+      },
+      {
+        "id": 1,
+        "name": "Jester",
+        "description": "They used to serve a king. But now he's ready to serve you ;)",
+        "rule": "Your response must rhyme.",
+        "iconImage": "jester_icon.png",
+        "descriptionImage": "jester_description.png",
+        "profileImage": "jester_profile.png"
+      }
     ]
   }
