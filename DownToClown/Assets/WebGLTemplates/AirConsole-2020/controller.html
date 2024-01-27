@@ -21,7 +21,7 @@
     <script type="text/javascript">
       var airconsole;
       let viewmanager = null;
-      var role;
+      let role = -1;
 
       function App() {
           /* JavaScript / Functionality. Add functions and evens here */
@@ -32,12 +32,14 @@
               console.log(data);
               const msg_type = data["msg_type"];
               switch (msg_type) {
-              case "roleAssignment":
-                  this.role = data["role_index"];
+              case "role_assignment":
+                  console.log("ROLE CHANGE");
+
+                  role = data["role_index"];
                   viewmanager.controllersShow('role-change');
+                  document.getElementById("myRole").innerHTML = role;
+
                   break;
-              default:
-                  console.log("ERRRROORRR");
               }
           };
 
@@ -79,12 +81,38 @@
     </script>
   </head>
   <body onload="window.app = new App()">
-    <div id="interact-button" ontouchstart="window.app.sendMessageToScreen('interact')"></div>
-
-    <a href="Scripts/Client/card-swiper/index.html">HELLOOOO</a><br>
+    <div id="interact-button" class="view default-view" ontouchstart="window.app.sendMessageToScreen('interact')"></div>
 
     <div id="role-change" class="view">
-      ROLE CHANGE ROLE CHANGE
+      <h1>"The role is: " <span id="myRole"></span></h1>
+    </div>
+
+    <div id="voting-screen" class="view">
+      <link rel="stylesheet" href="Scripts/Client/card-swiper/voting_view_style.css">
+      <ion-icon id="dislike" name="heart-dislike"></ion-icon>
+      <div id="swiper">
+        <!-- <div class="card" style="--i:0">
+             <img src="https://source.unsplash.com/random/1000x1000/?sky" alt="">
+        </div>
+        <div class="card" style="--i:1">
+          <img src="https://source.unsplash.com/random/1000x1000/?landscape" alt="">
+        </div>
+        <div class="card" style="--i:2">
+          <img src="https://source.unsplash.com/random/1000x1000/?ocean" alt="">
+        </div>
+        <div class="card" style="--i:3">
+          <img src="https://source.unsplash.com/random/1000x1000/?moutain" alt="">
+        </div>
+        <div class="card" style="--i:4">
+          <img src="https://source.unsplash.com/random/1000x1000/?forest" alt="">
+        </div> -->
+      </div>
+      <ion-icon id="like" name="heart"></ion-icon>
+
+      <script src="Scripts/Client/card-swiper/card.js"></script>
+      <script src="Scripts/Client/card-swiper/voting_view_script.js"></script>
+      <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+      <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     </div>
 
   </body>
