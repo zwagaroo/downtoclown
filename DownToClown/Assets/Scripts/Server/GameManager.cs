@@ -54,8 +54,6 @@ public class GameManager : MonoBehaviour
         gameData = JsonConvert.DeserializeObject<GameData>(gameDataAsset.text);
         availiablePrompts = new List<string>(gameData.Prompts);
 
-
-
         InitializeNewGame();
     }
 
@@ -137,8 +135,11 @@ public class GameManager : MonoBehaviour
     {
         screenManager.SetScreen("waitForPromptPicking");
 
-        //find whoever is Herald, then continue
+        //find whoever is Herald
 
+        //send switch screen to everyone who is not heard to waiting screen just have {msg_type = "switch_screen", screen = "waiting"}
+
+        //send switch screen to Hearld for him to go prompt picking. Send seperately the five prompt indexes in a list.
 
 
         //wait to receive
