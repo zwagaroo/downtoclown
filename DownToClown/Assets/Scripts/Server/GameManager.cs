@@ -14,12 +14,15 @@ public class GameManager : MonoBehaviour
 
     public ScreenManager screenManager;
 
-    TextAsset textAsset = Resources.Load<TextAsset>("prompts");
-
+    public List<string> prompts;
 
 
     public void Start()
     {
+
+        TextAsset promptsAsset = Resources.Load<TextAsset>("prompts");
+        TextAsset roleDescriptionAsset = Resources.Load<TextAsset>("roleDescriptions");
+
         InitializeNewGame();
     }
 
@@ -59,7 +62,6 @@ public class GameManager : MonoBehaviour
     {
         screenManager.SetScreen("checkRole");
 
-
         var active_player_ids = airConsole.GetActivePlayerDeviceIds;
 
 
@@ -74,7 +76,7 @@ public class GameManager : MonoBehaviour
     {
         screenManager.SetScreen("waitForPromptPicking");
 
-
+        //wait to receive
     }
 
     void InitializeWaitForResponse()
@@ -114,9 +116,13 @@ public class GameManager : MonoBehaviour
             Debug.Log("NO MESSAGE TYPE");
         }
 
-        if(msg_type == "switch_scene")
+        if(msg_type == "switch_state")
         {
             InitializeState(GameState.CheckRole);
+        }
+        else if(msg_type == "prompt_picked" && currentState == GameState.WaitForPromptPicking)
+        {   
+
         }
         else if(msg_type == "")
         {
