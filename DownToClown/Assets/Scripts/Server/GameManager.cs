@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public ScreenManager screenManager;
     public GameData gameData;
 
-    List<string> availiablePrompts;
+    List<int> availiablePrompts;
 
     public bool initedRoles = false;
 
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
 
         UnityEngine.TextAsset gameDataAsset = Resources.Load<UnityEngine.TextAsset>("gameData");
         gameData = JsonConvert.DeserializeObject<GameData>(gameDataAsset.text);
-        availiablePrompts = Enumerable.Range(0, gameData.Prompts.Count);
+        availiablePrompts = Enumerable.Range(0, gameData.Prompts.Count).ToList();
 
         InitializeNewGame();
     }
@@ -135,7 +135,8 @@ public class GameManager : MonoBehaviour
     {
         screenManager.SetScreen("waitForPromptPicking");
 
-        //find whoever is Herald
+        int heraldId = ClownShuffler.rounds[ClownShuffler.currentRound].GetHerald();
+        List<int> clownIds = ClownShuffler.rounds[ClownShuffler.currentRound].GetClowns();
 
         //send switch screen to everyone who is not heard to waiting screen just have {msg_type = "switch_screen", screen = "waiting"}
 

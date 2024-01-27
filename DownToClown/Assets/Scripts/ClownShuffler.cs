@@ -34,16 +34,18 @@ public class Round
                 return kvp.Key;
             }
         }
+        Debug.LogError("NO HERALD FOUND");
+        return -1;
     }
 
     public List<int> GetClowns()
     {
-        List<int> clowns = new();
+        List<int> clowns = new List<int>();
         foreach (KeyValuePair<int, int> kvp in roles)
         {
             if (kvp.Value != 0)
             {
-                clowns.add(kvp.Key);
+                clowns.Add(kvp.Key);
             }
         }
         return clowns;
