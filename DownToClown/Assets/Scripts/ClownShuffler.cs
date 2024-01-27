@@ -93,11 +93,9 @@ public class ClownShuffler : MonoBehaviour
 {
     public static List<Round> rounds;
 
-    public static int currentRound = 0;
 
     public static void SetNamesAndClowns(List<int> players, List<int> characters)
     {
-        currentRound = 0;
         rounds = new List<Round>();
 
         for (int i = 0; i < players.Count; i++)
