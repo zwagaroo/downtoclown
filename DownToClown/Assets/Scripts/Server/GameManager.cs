@@ -6,6 +6,7 @@ using UnityEngine;
 
 
 
+
 public enum GameState { Lobby, CheckRole, WaitForPromptPicking, WaitForResponse, WaitForActing, WaitForVoting, RoundResults, GameResults};
 
 public class GameManager : MonoBehaviour
@@ -14,6 +15,9 @@ public class GameManager : MonoBehaviour
     public AirConsole airConsole;
 
     public ScreenManager screenManager;
+
+    TextAsset textAsset = Resources.Load<TextAsset>("prompts");
+
 
 
     public void Start()
@@ -51,15 +55,28 @@ public class GameManager : MonoBehaviour
         screenManager.SetScreen("lobby");
     }
 
+    
+
     void InitializeCheckRole()
     {
         screenManager.SetScreen("checkRole");
 
+
+        var active_player_ids = airConsole.GetActivePlayerDeviceIds;
+
+
+        //TODO:: WE NEED TO NOT JUST SEND ARBITRARY INDEX
+        for(int i = 0; i < active_player_ids.Count; i++)
+        {
+            airConsole.Message(i, new { msg_type = "roleAssignment", role_index = active_player_ids[i]});
+        }
     }
 
     void InitializeWaitForPromptPicking()
     {
         screenManager.SetScreen("waitForPromptPicking");
+
+
     }
 
     void InitializeWaitForResponse()
@@ -99,13 +116,13 @@ public class GameManager : MonoBehaviour
             Debug.Log("NO MESSAGE TYPE");
         }
 
-        if(msg_type == "start")
+        if(msg_type == "switch_scene")
         {
             InitializeState(GameState.CheckRole);       
-        } 
-        else if(msg_type == null)
+        }
+        else if(msg_type == "")
         {
-
+            
         }
     }
 

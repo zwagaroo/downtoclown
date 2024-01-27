@@ -56,10 +56,14 @@
     'info': { 'amount': 5, 'torque': 234.8 }
     };
 
+
+    
     App.prototype.sendMessageToScreen = function(msg) {
         console.log(message);
         this.airconsole.message(AirConsole.SCREEN, message);
     };
+
+
   </script>
 </head>
 <body onload="window.app = new App()">
