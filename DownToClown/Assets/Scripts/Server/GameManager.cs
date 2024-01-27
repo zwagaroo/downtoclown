@@ -69,12 +69,10 @@ public class GameManager : MonoBehaviour
 
                 if (!initedRoles)
                 {
-
-
-
                     int numClowns = 6;
-
                     ClownShuffler.SetNamesAndClowns(airConsole.GetControllerDeviceIds(), GenerateRandomSubset(numClowns-1, airConsole.GetControllerDeviceIds().Count));
+
+                    
                 }
                 InitializeCheckRole();
                 break;
