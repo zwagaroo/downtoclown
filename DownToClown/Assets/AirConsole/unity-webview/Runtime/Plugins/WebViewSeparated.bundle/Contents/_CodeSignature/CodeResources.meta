@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4a3f9bf3c6b2c438f98b8c3d11b4dc08
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 42776
+  packageName: AirConsole
+  packageVersion: 2.14
+  assetPath: Assets/AirConsole/unity-webview/Runtime/Plugins/WebViewSeparated.bundle/Contents/_CodeSignature/CodeResources
+  uploadId: 623639

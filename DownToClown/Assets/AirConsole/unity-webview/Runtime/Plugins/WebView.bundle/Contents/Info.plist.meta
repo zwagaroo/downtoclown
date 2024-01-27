@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 1534a696a5d9a49eda74e7be161db72c
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 42776
+  packageName: AirConsole
+  packageVersion: 2.14
+  assetPath: Assets/AirConsole/unity-webview/Runtime/Plugins/WebView.bundle/Contents/Info.plist
+  uploadId: 623639

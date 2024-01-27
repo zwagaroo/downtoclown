@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: df75f5d89ade0473ab1981de65f41220
+timeCreated: 1535029316
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 42776
+  packageName: AirConsole
+  packageVersion: 2.14
+  assetPath: Assets/AirConsole/unity-webview/Runtime/WebViewObject.cs
+  uploadId: 623639

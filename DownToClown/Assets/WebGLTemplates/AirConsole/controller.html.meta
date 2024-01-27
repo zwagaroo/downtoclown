@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: eda0824101ccd4fb195dddb68973fc1c
+timeCreated: 1448374278
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 42776
+  packageName: AirConsole
+  packageVersion: 2.14
+  assetPath: Assets/WebGLTemplates/AirConsole/controller.html
+  uploadId: 623639

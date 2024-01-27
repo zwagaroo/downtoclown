@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: af61e210e9631bc48b15592529bba8f2
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 42776
+  packageName: AirConsole
+  packageVersion: 2.14
+  assetPath: Assets/AirConsole/link.xml
+  uploadId: 623639

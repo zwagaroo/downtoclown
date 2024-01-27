@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 07db95dfd7cca475ea32070530357b88
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 42776
+  packageName: AirConsole
+  packageVersion: 2.14
+  assetPath: Assets/AirConsole/unity-webview/CHANGELOG.md
+  uploadId: 623639

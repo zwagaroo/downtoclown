@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 2444406e933654e11af59b1d16887435
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 42776
+  packageName: AirConsole
+  packageVersion: 2.14
+  assetPath: Assets/Plugins/Android/mainTemplate.gradle.DISABLED
+  uploadId: 623639

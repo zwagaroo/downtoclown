@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c5a650fb3e06e48159a195fc364b41f7
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 42776
+  packageName: AirConsole
+  packageVersion: 2.14
+  assetPath: Assets/AirConsole/unity-webview/Runtime/Plugins/WebViewSeparated.bundle/Contents/MacOS/WebViewSeparated
+  uploadId: 623639
