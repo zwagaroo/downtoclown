@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
-
 public enum GameState { Lobby, CheckRole, WaitForPromptPicking, WaitForResponse, WaitForActing, WaitForVoting, RoundResults, GameResults};
 
 public class GameManager : MonoBehaviour
@@ -55,7 +53,7 @@ public class GameManager : MonoBehaviour
         screenManager.SetScreen("lobby");
     }
 
-    
+
 
     void InitializeCheckRole()
     {
@@ -118,16 +116,11 @@ public class GameManager : MonoBehaviour
 
         if(msg_type == "switch_scene")
         {
-            InitializeState(GameState.CheckRole);       
+            InitializeState(GameState.CheckRole);
         }
         else if(msg_type == "")
         {
-            
+
         }
     }
-
-
-
 }
-
-

@@ -13,11 +13,12 @@ public class GameLogic : MonoBehaviour
     }
 
     // C#
-    void OnMessage(int from, JToken data) {
+    void OnMessage(int fromID, JToken data) {
         string action = (string) data["action"];
         int amount = (int) data["info"]["amount"];
         float torque = (float) data["info"]["torque"];
-        Debug.Log("ALSKDJALKSJDLASKJDAS! " + action);
+        Debug.Log(fromID + "ALSKDJALKSJDLASKJDAS! " + action);
+        AirConsole.instance.Message(fromID, "BEEEEEEEEEP");
     }
 
     // Update is called once per frame
