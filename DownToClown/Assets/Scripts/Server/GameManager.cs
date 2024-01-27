@@ -148,6 +148,8 @@ public class GameManager : MonoBehaviour
     void InitializeWaitForResponse()
     {
         screenManager.SetScreen("waitForResponse");
+
+        //set a timer for response, check if we have enough responses
     }
 
     void InitializeWaitForActing()
