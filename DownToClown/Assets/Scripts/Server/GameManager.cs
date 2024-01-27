@@ -1,9 +1,14 @@
 using NDream.AirConsole;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.TextCore.Text;
+using static UnityEditor.Rendering.CameraUI;
 
 public enum GameState { Lobby, CheckRole, WaitForPromptPicking, WaitForResponse, WaitForActing, WaitForVoting, RoundResults, GameResults};
 
@@ -11,17 +16,18 @@ public class GameManager : MonoBehaviour
 {
     public GameState currentState;
     public AirConsole airConsole;
-
     public ScreenManager screenManager;
-
     public List<string> prompts;
 
+    public bool initedRoles = false;
 
     public void Start()
     {
 
-        TextAsset promptsAsset = Resources.Load<TextAsset>("prompts");
-        TextAsset roleDescriptionAsset = Resources.Load<TextAsset>("roleDescriptions");
+        UnityEngine.TextAsset promptsAsset = Resources.Load<UnityEngine.TextAsset>("prompts");
+        UnityEngine.TextAsset roleDescriptionAsset = Resources.Load<UnityEngine.TextAsset>("roleDescriptions");
+
+        prompts = JsonConvert.DeserializeObject<List<string>>(promptsAsset.text);
 
         InitializeNewGame();
     }
@@ -33,6 +39,21 @@ public class GameManager : MonoBehaviour
         airConsole.onMessage += OnMessage;
     }
 
+    public List<int> GenerateRandomSubset(int n, int k)
+    {
+        var numbers = Enumerable.Range(0, n + 1).ToList();
+        var randomSubset = new List<int>();
+
+        while (randomSubset.Count < k)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, numbers.Count);
+            randomSubset.Add(numbers[randomIndex]);
+            numbers.RemoveAt(randomIndex);
+        }
+
+        return randomSubset;
+
+    }
     public void InitializeState(GameState state)
     {
         switch(state)
@@ -41,6 +62,16 @@ public class GameManager : MonoBehaviour
                 InitializeLobbyState();
                 break;
             case GameState.CheckRole:
+
+                if (!initedRoles)
+                {
+
+
+
+                    int numClowns = 6;
+
+                    ClownShuffler.SetNamesAndClowns(airConsole.GetControllerDeviceIds(), GenerateRandomSubset(numClowns-1, airConsole.GetControllerDeviceIds().Count));
+                }
                 InitializeCheckRole();
                 break;
 
@@ -65,6 +96,7 @@ public class GameManager : MonoBehaviour
         var deviceIDs = airConsole.GetControllerDeviceIds();
 
         //TODO:: WE NEED TO NOT JUST SEND ARBITRARY INDEX
+
         for(int i = 0; i < deviceIDs.Count; i++)
         {
             airConsole.Message(deviceIDs[i], new { msg_type = "roleAssignment", role_index = deviceIDs[i]});
@@ -117,7 +149,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("NO MESSAGE TYPE");
         }
 
-        if(msg_type == "switch_state")
+        if(msg_type == "ready")
         {
             InitializeState(GameState.CheckRole);
         }
