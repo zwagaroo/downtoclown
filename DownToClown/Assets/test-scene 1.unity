@@ -579,7 +579,7 @@ MonoBehaviour:
   webViewLoadingSprite: {fileID: 0}
   browserStartMode: 2
   devGameId: 
-  LocalIpOverride: https://sports-frontpage-has-sympathy.trycloudflare.com
+  LocalIpOverride: https://pn-statutes-plans-growing.trycloudflare.com
 --- !u!4 &635519550
 Transform:
   m_ObjectHideFlags: 0
@@ -772,6 +772,7 @@ MonoBehaviour:
   currentState: 0
   airConsole: {fileID: 635519549}
   screenManager: {fileID: 849906392}
+  prompts: []
 --- !u!4 &923816380
 Transform:
   m_ObjectHideFlags: 0

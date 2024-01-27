@@ -62,13 +62,12 @@ public class GameManager : MonoBehaviour
     {
         screenManager.SetScreen("checkRole");
 
-        var active_player_ids = airConsole.GetActivePlayerDeviceIds;
-
+        var deviceIDs = airConsole.GetControllerDeviceIds();
 
         //TODO:: WE NEED TO NOT JUST SEND ARBITRARY INDEX
-        for(int i = 0; i < active_player_ids.Count; i++)
+        for(int i = 0; i < deviceIDs.Count; i++)
         {
-            airConsole.Message(i, new { msg_type = "roleAssignment", role_index = active_player_ids[i]});
+            airConsole.Message(deviceIDs[i], new { msg_type = "roleAssignment", role_index = deviceIDs[i]});
         }
     }
 
@@ -110,6 +109,8 @@ public class GameManager : MonoBehaviour
     void OnMessage(int from, JToken data)
     {
         string msg_type = (string)data["msg_type"];
+
+        Debug.Log(msg_type);
 
         if(msg_type == null)
         {
