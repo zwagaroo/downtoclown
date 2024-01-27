@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
 
     List<int> availiablePrompts;
 
+
+    public int currentPromptIndex; 
+
     public bool initedRoles = false;
 
 
@@ -181,30 +184,84 @@ public class GameManager : MonoBehaviour
     void OnMessage(int from, JToken data)
     {
 
+
         string msg_type = (string)data["msg_type"];
 
-        Debug.Log(msg_type);
-
-        if(msg_type == null)
+        if (msg_type == null)
         {
             Debug.Log("NO MESSAGE TYPE");
         }
 
-        if(msg_type == "switch_state")
+        if (msg_type == "switch_state")
         {
             SetState(GameState.CheckRole);
         }
-        else if(msg_type == "prompt_picked" && currentState == GameState.WaitForPromptPicking)
-        {   
+
+
+        switch (currentState)
+        {
+            case GameState.Lobby:
+                OnMessageLobby(from, data, msg_type);
+                break;
+            case GameState.CheckRole:
+                OnMessageCheckRole(from, data, msg_type);
+                break;
+            case GameState.WaitForPromptPicking:
+                OnMessageWaitForPromptPicking(from, data, msg_type);
+                break;
+            case GameState.WaitForResponse:
+                OnMessageWaitForResponse(from, data, msg_type);
+                break;
+            case GameState.WaitForActing:
+                OnMessageWaitForActing(from, data, msg_type);
+                break;
+            case GameState.WaitForVoting:
+                OnMessageWaitForVoting(from, data, msg_type);
+                break;
 
         }
-        else if(msg_type == "")
-        {
 
+    }
+
+    void OnMessageLobby(int from, JToken data, string msg_type)
+    {
+
+    }
+
+    void OnMessageCheckRole(int from, JToken data, string msg_type)
+    {
+
+    }
+
+    void OnMessageWaitForPromptPicking(int from, JToken data, string msg_type)
+    {
+        if(msg_type == "prompt_picked")
+        {
+            currentPromptIndex = (int)data["prompt_index"];
         }
     }
 
-    void OnMessageLobby()
+    void OnMessageWaitForResponse(int from, JToken data, string msg_type)
+    {
+
+    }
+
+    void OnMessageWaitForActing(int from, JToken data, string msg_type)
+    {
+
+    }
+
+    void OnMessageWaitForVoting(int from, JToken data, string msg_type)
+    {
+
+    }
+
+    void OnMessageRoundResults(int from, JToken data, string msg_type)
+    {
+
+    }
+
+    void OnMessageGameResults(int from, JToken data, string msg_type)
     {
 
     }
