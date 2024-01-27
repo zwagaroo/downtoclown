@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour
 
         for(int i = 0; i < deviceIDs.Count; i++)
         {
-            airConsole.Message(deviceIDs[i], new { msg_type = "role_assignment", role_index = currentRoles[i]});
+            airConsole.Message(deviceIDs[i], new { msg_type = "role_assignment", role_index = currentRoles[deviceIDs[i]]});
         }
 
     }
@@ -175,8 +175,11 @@ public class GameManager : MonoBehaviour
         screenManager.SetScreen("waitForGameResults");
     }
 
+
+
     void OnMessage(int from, JToken data)
     {
+
         string msg_type = (string)data["msg_type"];
 
         Debug.Log(msg_type);
@@ -198,5 +201,10 @@ public class GameManager : MonoBehaviour
         {
 
         }
+    }
+
+    void OnMessageLobby()
+    {
+
     }
 }
