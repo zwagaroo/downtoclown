@@ -17,27 +17,10 @@ public class GameManager : MonoBehaviour
     public GameState currentState;
     public AirConsole airConsole;
     public ScreenManager screenManager;
-    public List<string> prompts;
+    public GameData gameData;
 
     public bool initedRoles = false;
 
-    public void Start()
-    {
-
-        UnityEngine.TextAsset promptsAsset = Resources.Load<UnityEngine.TextAsset>("prompts");
-        UnityEngine.TextAsset roleDescriptionAsset = Resources.Load<UnityEngine.TextAsset>("roleDescriptions");
-
-        prompts = JsonConvert.DeserializeObject<List<string>>(promptsAsset.text);
-
-        InitializeNewGame();
-    }
-
-    public void InitializeNewGame()
-    {
-        currentState = GameState.Lobby;
-        InitializeState(currentState);
-        airConsole.onMessage += OnMessage;
-    }
 
     public List<int> GenerateRandomSubset(int n, int k)
     {
@@ -54,6 +37,27 @@ public class GameManager : MonoBehaviour
         return randomSubset;
 
     }
+
+
+    public void Start()
+    {
+
+        UnityEngine.TextAsset gameDataAsset = Resources.Load<UnityEngine.TextAsset>("gameData");
+        gameData = JsonConvert.DeserializeObject<GameData>(gameDataAsset.text);
+
+       
+
+        InitializeNewGame();
+    }
+
+    public void InitializeNewGame()
+    {
+        currentState = GameState.Lobby;
+        InitializeState(currentState);
+        airConsole.onMessage += OnMessage;
+    }
+
+
     public void InitializeState(GameState state)
     {
         switch(state)
