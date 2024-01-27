@@ -296,7 +296,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 923816380}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -571,14 +572,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e37d83ebce05ad74683fd3228dde9e7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllerHtml: {fileID: 4900000, guid: 4d46268465428b049b5d8676a31a2c2b, type: 3}
+  controllerHtml: {fileID: 4900000, guid: 28fb53df6c5194348933fb3c543edb6b, type: 3}
   autoScaleCanvas: 1
   androidTvGameVersion: 
   androidUIResizeMode: 0
   webViewLoadingSprite: {fileID: 0}
   browserStartMode: 0
   devGameId: 
-  LocalIpOverride: https://protocol-irish-anchor-song.trycloudflare.com
+  LocalIpOverride: https://sports-frontpage-has-sympathy.trycloudflare.com
 --- !u!4 &635519550
 Transform:
   m_ObjectHideFlags: 0
@@ -779,13 +780,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 923816378}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1096.0458, y: -180.19742, z: -23.020447}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 136.04578, y: -720.1974, z: -23.020447}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 849906393}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 160787425}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1275896751
 GameObject:
@@ -1272,4 +1273,3 @@ SceneRoots:
   - {fileID: 635519550}
   - {fileID: 220853572}
   - {fileID: 160787425}
-  - {fileID: 923816380}
