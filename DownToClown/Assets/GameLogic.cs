@@ -12,9 +12,12 @@ public class GameLogic : MonoBehaviour
         AirConsole.instance.onMessage += OnMessage;
     }
 
-
+    // C#
     void OnMessage(int from, JToken data) {
-        AirConsole.instance.Message(from, "Full of pixels!");
+        string action = (string) data["action"];
+        int amount = (int) data["info"]["amount"];
+        float torque = (float) data["info"]["torque"];
+        Debug.Log("ALSKDJALKSJDLASKJDAS! " + action);
     }
 
     // Update is called once per frame

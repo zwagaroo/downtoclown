@@ -50,13 +50,20 @@
       }
     }
 
+    // Javascript
+    var message = {
+    'action': 'move',
+    'info': { 'amount': 5, 'torque': 234.8 }
+    };
+
     App.prototype.sendMessageToScreen = function(msg) {
-        console.log("HELLO WORLD");
-        this.airconsole.message(AirConsole.SCREEN, {"action": msg});
+        console.log(message);
+        this.airconsole.message(AirConsole.SCREEN, message);
     };
   </script>
 </head>
 <body onload="window.app = new App()">
   <div id="interact-button" ontouchstart="window.app.sendMessageToScreen('interact')"></div>
+  <a href="Scripts/Client/card-swiper/index.html">HELLOOOO</a><br>
 </body>
 </html>
