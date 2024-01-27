@@ -19,42 +19,67 @@ public class GameManager : MonoBehaviour
     public ScreenManager screenManager;
     public GameData gameData;
 
+    List<string> availiablePrompts;
+
     public bool initedRoles = false;
 
 
-    public List<int> GenerateRandomSubset(int n, int k)
+    public List<T> GenerateRandomSubset<T>(List<T> list, int k)
     {
-        var numbers = Enumerable.Range(0, n + 1).ToList();
-        var randomSubset = new List<int>();
+        var randomSubset = new List<T>();
 
-        while (randomSubset.Count < k)
+        // Make a copy of the original list
+        var tempList = new List<T>(list);
+
+        while (randomSubset.Count < k && tempList.Count > 0)
         {
-            int randomIndex = UnityEngine.Random.Range(0, numbers.Count);
-            randomSubset.Add(numbers[randomIndex]);
-            numbers.RemoveAt(randomIndex);
+            int randomIndex = UnityEngine.Random.Range(0, tempList.Count);
+            randomSubset.Add(tempList[randomIndex]);
+            tempList.RemoveAt(randomIndex);
         }
 
         return randomSubset;
-
     }
 
+    public List<int> GenerateRandomSubset(int n, int k)
+    {
+        var numbers = new List<int>(Enumerable.Range(0, n));
+        return GenerateRandomSubset(numbers, k);
+    }
 
     public void Start()
     {
 
         UnityEngine.TextAsset gameDataAsset = Resources.Load<UnityEngine.TextAsset>("gameData");
         gameData = JsonConvert.DeserializeObject<GameData>(gameDataAsset.text);
+        availiablePrompts = new List<string>(gameData.Prompts);
 
-       
+
 
         InitializeNewGame();
     }
 
+    public static readonly int NUM_PROMPT_OPTIONS = 5;
+    public List<string> GetPromptOptions()
+    {
+        return GenerateRandomSubset<string>(availiablePrompts, NUM_PROMPT_OPTIONS);
+    }
+
+    public void ChoosePromt(string prompt)
+    {
+        availiablePrompts.Remove(prompt);
+    }
+
     public void InitializeNewGame()
     {
-        currentState = GameState.Lobby;
-        InitializeState(currentState);
+        SetState(GameState.Lobby);
         airConsole.onMessage += OnMessage;
+    }
+
+    public void SetState(GameState state)
+    {
+        currentState = state;
+        InitializeState(currentState);
     }
 
 
@@ -160,7 +185,7 @@ public class GameManager : MonoBehaviour
 
         if(msg_type == "switch_state")
         {
-            InitializeState(GameState.CheckRole);
+            SetState(GameState.CheckRole);
         }
         else if(msg_type == "prompt_picked" && currentState == GameState.WaitForPromptPicking)
         {   
