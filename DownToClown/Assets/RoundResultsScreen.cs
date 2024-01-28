@@ -20,6 +20,7 @@ public class RoundResultsScreen : GameScreen
     public Image image1;
     public Image image2;
     public Image image3;
+    public GameObject thirdPlace;
 
     public override void Update()
     {
@@ -61,8 +62,14 @@ public class RoundResultsScreen : GameScreen
         name2.text = character2.name;
         if(character3 != null)
         {
+
+            thirdPlace.SetActive(true);
             name3.text = character3.name;
             image3.sprite = character3.GetIconSprite();
+        }
+        else
+        {
+            thirdPlace.SetActive(false);
         }
         image1.sprite = character1.GetIconSprite();
         image2.sprite = character2.GetIconSprite();

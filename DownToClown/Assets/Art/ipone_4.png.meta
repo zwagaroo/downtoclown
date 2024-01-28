@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ipone_4_0: -3524291087767321364
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
