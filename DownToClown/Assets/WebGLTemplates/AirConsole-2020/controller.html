@@ -200,9 +200,13 @@
               card.style.setProperty('--i', index);
             });
             if(cardCount == 0){
-              window.app.sendMessageToScreen(vote);
+              var msg = {
+                msg_type = "vote_result",
+                vote_data = vote
+              }
+              window.app.sendMessageToScreen(msg);
 
-              setTimeout(()=> {viewmanager.controllersShow("waiting");}, 2000);
+              setTimeout(()=> {viewmanager.controllersShow("waiting");}, 1000);
               
             }
           },

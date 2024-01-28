@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Events;
 using NDream.AirConsole;
+using UnityEngine.Profiling;
 
 [System.Serializable]
 public class Profile
@@ -12,6 +13,13 @@ public class Profile
     public Character character;
     public string prompt;
     public string promptAnswer;
+
+    public Profile(Character c, string prompt, string promptAnswer)
+    {
+        character = c;
+        this.prompt = prompt;
+        this.promptAnswer = promptAnswer;
+    }
 }
 
 public class WaitForActingScreen : GameScreen
@@ -30,6 +38,10 @@ public class WaitForActingScreen : GameScreen
     public Profile testProfile;
     public UnityEvent onAdvance;
 
+    public void Start()
+    {
+        currentProfileIndex = 0;
+    }
     public void Update()
     {
         if (Input.GetKey(KeyCode.LeftArrow)) {
@@ -63,6 +75,18 @@ public class WaitForActingScreen : GameScreen
 
     public void CreateProfileList()
     {
+        var deviceIDs = gameManager.airConsole.GetControllerDeviceIds();
+
+        foreach(var deviceID in deviceIDs)
+        {
+
+            var roleIndex = ClownShuffler.rounds[gameManager.currentRound].roles[deviceID];
+
+            if (roleIndex != 0)
+            {
+                profiles.Add(new Profile(gameManager.gameData.characters[roleIndex], gameManager.currentPrompt, gameManager.prompt_answers[gameManager.currentRound][deviceID]));
+            }
+        }
     }
 
     public void HideProfile()

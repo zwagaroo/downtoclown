@@ -340,7 +340,9 @@ MonoBehaviour:
   prompt: {fileID: 0}
   promptAnswer: {fileID: 0}
   profiles: []
+  currentProfileIndex: 0
   onCountdown: 0
+  gameManager: {fileID: 0}
   testProfile:
     character:
       id: 0
@@ -352,6 +354,9 @@ MonoBehaviour:
       profileImage: 
     prompt: 
     promptAnswer: 
+  onAdvance:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &100562911
 GameObject:
   m_ObjectHideFlags: 0
@@ -1021,6 +1026,8 @@ MonoBehaviour:
           m_StringArgument: waitforacting
           m_BoolArgument: 0
         m_CallState: 2
+  gameManager: {fileID: 0}
+  questionText: {fileID: 0}
 --- !u!1 &485440828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1120,6 +1127,7 @@ MonoBehaviour:
           m_StringArgument: waitforpromptpicking
           m_BoolArgument: 0
         m_CallState: 2
+  gameManager: {fileID: 0}
 --- !u!1 &591462858
 GameObject:
   m_ObjectHideFlags: 0
@@ -1292,9 +1300,9 @@ MonoBehaviour:
   androidTvGameVersion: 
   androidUIResizeMode: 0
   webViewLoadingSprite: {fileID: 0}
-  browserStartMode: 3
+  browserStartMode: 0
   devGameId: 
-  LocalIpOverride: https://corpus-pal-weblogs-crime.trycloudflare.com
+  LocalIpOverride: 
 --- !u!4 &635519550
 Transform:
   m_ObjectHideFlags: 0
@@ -1609,6 +1617,9 @@ MonoBehaviour:
   initedRoles: 0
   deviceIds: 
   responseCount: 0
+  WaitForPromptPickingScreen: {fileID: 0}
+  waitForActingScreen: {fileID: 0}
+  roundResultsScreen: {fileID: 0}
 --- !u!4 &923816380
 Transform:
   m_ObjectHideFlags: 0
@@ -3547,6 +3558,12 @@ MonoBehaviour:
   OnTimerEnd:
     m_PersistentCalls:
       m_Calls: []
+  name1: {fileID: 0}
+  name2: {fileID: 0}
+  name3: {fileID: 0}
+  image1: {fileID: 0}
+  image2: {fileID: 0}
+  image3: {fileID: 0}
 --- !u!1001 &817986608679039900
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13,6 +13,8 @@ public class WaitForResponseScreen : GameScreen
     public float timer = 90f;
     public UnityEvent OnTimerEnd;
     public GameManager gameManager;
+
+    public TextMeshProUGUI questionText;
     public override void Update()
     {
         UpdateCountdown();
@@ -36,6 +38,8 @@ public class WaitForResponseScreen : GameScreen
     {
         onCountdown = true;
         countdownTimer.gameObject.SetActive(true);
+
+        questionText.text = gameManager.currentPrompt;
     }
 
     public void ResetCountdown()

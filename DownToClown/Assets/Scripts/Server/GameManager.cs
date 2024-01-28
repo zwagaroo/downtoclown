@@ -44,6 +44,13 @@ public class GameManager : MonoBehaviour
 
     public List<Dictionary<int, string>> prompt_answers = new List<Dictionary<int, string>>();
 
+    public WaitForPromptPickingScreen WaitForPromptPickingScreen;
+
+    public WaitForActingScreen waitForActingScreen;
+
+    public RoundResultsScreen roundResultsScreen;
+
+
 
 
     public void StartGame()
@@ -250,6 +257,8 @@ public class GameManager : MonoBehaviour
 
     void InitializeWaitForActing()
     {
+        waitForActingScreen.CreateProfileList();
+        waitForActingScreen.SetProfile(waitForActingScreen.profiles[0]);
         screenManager.SetScreen("waitForActing");
     }
 
@@ -257,6 +266,7 @@ public class GameManager : MonoBehaviour
     void InitializeWaitForVoting()
     {
         screenManager.SetScreen("waitForVoting");
+        responseCount = 0;
 
         voteResult.Add(new Dictionary<int, int>());
 
@@ -265,6 +275,44 @@ public class GameManager : MonoBehaviour
 
     void InitializeRoundResults()
     {
+
+        //Tally logic,
+
+        int max = 0;
+        int firstClown = -1;
+
+        foreach (var (clownID, numVotes) in voteResult[currentRound])
+        {
+            if(numVotes > max)
+            {
+                firstClown = clownID;
+            }
+        }
+
+        int secondMax = 0;
+
+        int secondClown = -1;
+        foreach (var (clownID, numVotes) in voteResult[currentRound])
+        {
+            if (numVotes > secondMax && clownID != firstClown)
+            {
+                secondClown = clownID;
+            }
+        }
+
+        /*        int thirdMax = 0;
+
+                int thirdClown = -1;
+                foreach (var (clownID, numVotes) in voteResult[currentRound])
+                {
+                    if (numVotes > thirdMax && clownID != firstClown && clownID != secondClown)
+                    {
+                        thirdClown = clownID;
+                    }
+                }*/
+
+        roundResultsScreen.SetWinners(gameData.characters[firstClown], gameData.characters[secondClown]);
+
         screenManager.SetScreen("waitForRoundResults");
     }
 
@@ -360,6 +408,8 @@ public class GameManager : MonoBehaviour
                     });
 
             SetState(GameState.WaitForResponse);
+
+            WaitForPromptPickingScreen.onPromptChosen.Invoke();
         }
     }
     public void StopWaitingForResponse()
@@ -469,6 +519,11 @@ public class GameManager : MonoBehaviour
                         voteResult[currentRound][ClownShuffler.rounds[currentRound].roles[deviceIDs[i]]] += voteData[i];
                     }
                 }
+            }
+
+            if (responseCount >= deviceIDs.Count)
+            {
+                SetState(GameState.RoundResults);
             }
         }
     }
