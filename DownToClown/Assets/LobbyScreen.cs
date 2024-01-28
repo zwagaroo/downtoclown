@@ -16,6 +16,11 @@ public class LobbyScreen : GameScreen
     public TextMeshProUGUI countdownTimer;
     public float timer = 10f;
     public UnityEvent onTimerEnd;
+
+    public void Start()
+    {
+        onTimerEnd.AddListener(StartGame);
+    }
     public override void Update()
     {
         //for use for debugging
@@ -56,7 +61,6 @@ public class LobbyScreen : GameScreen
             if (Mathf.CeilToInt(timer) <= 0)
             {
                 onTimerEnd.Invoke();
-                StartGame();
             }
         }
     }
