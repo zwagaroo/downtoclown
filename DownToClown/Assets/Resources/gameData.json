@@ -17,65 +17,65 @@
     {
       "id": 0,
       "name": "Harold the herald",
-      "description": "He thought this was normal speed dating.",
-      "rule": "Read the messages sent to the screen.",
-      "iconImage": "herald1",
-      "descriptionImage": "herald2",
-      "profileImage": "herald3"
+      "description": "He thought this was normal speed dating...",
+      "rule": "Perform the messages sent to the screen!",
+      "iconImage": "/herald1.png",
+      "descriptionImage": "/herald2.png",
+      "profileImage": "/herald3.png"
     },
     {
       "id": 1,
       "name": "The Jester",
       "description": "You used to serve a king. But now you're ready to serve someone else ;)",
-      "rule": "Speaks in rhymes.",
-      "iconImage": "jester1",
-      "descriptionImage": "jester2",
-      "profileImage": "jester3"
+      "rule": "Speaks in rhymes!",
+      "iconImage": "/jester1.png",
+      "descriptionImage": "/jester2.png",
+      "profileImage": "/jester3.png"
     },
     {
       "id": 2,
       "name": "The Mime",
       "description": "🤡🤸🃏🤹‍♂️💌🔇🔕",
-      "rule": "Texts with only emoji.",
-      "iconImage": "mime1",
-      "descriptionImage": "mime2",
-      "profileImage": "mime3"
+      "rule": "Type only in emojis!",
+      "iconImage": "/mime1.png",
+      "descriptionImage": "/mime2.png",
+      "profileImage": "/mime3.png"
     },
     {
       "id": 3,
       "name": "The Pierrot",
       "description": "Knock knock... who's there? True love perhaps?",
-      "rule": "Speaks using knock-knock jokes.",
-      "iconImage": "pierrot1",
-      "descriptionImage": "pierrot2",
-      "profileImage": "pierrot3"
+      "rule": "Seduce using knock-knock jokes!",
+      "iconImage": "/pierrot1.png",
+      "descriptionImage": "/pierrot2.png",
+      "profileImage": "/pierrot3.png"
     },
     {
       "id": 4,
       "name": "?????",
-      "description": "?????????",
-      "rule": "Communicates with uwu voice.",
-      "iconImage": "murder1",
-      "descriptionImage": "murder2",
-      "profileImage": "murder3"
+      "description": "&^-$#*-.@#% :] <3",
+      "rule": "Use bwaby twalk uwu",
+      "iconImage": "/murder1.png",
+      "descriptionImage": "/murder2.png",
+      "profileImage": "/murder3.png"
     },
     {
       "id": 5,
       "name": "The Comedian",
       "description": "When you failed at standup, you switched to circus performance. Now that you've failed at marriage it's time to switch strategies agiain.",
-      "rule": "Uses many (very bad) puns.",
-      "iconImage": "standup1",
-      "descriptionImage": "standup2",
-      "profileImage": "standup3"
+      "rule": "Use many (very bad) puns...",
+      "iconImage": "/standup1.png",
+      "descriptionImage": "/standup2.png",
+      "profileImage": "/standup3.png"
     },
     {
       "id": 6,
       "name": "The Slapstick-er",
       "description": "You have many positive traits. Neither coordination nor balance are part of that list.",
-      "rule": "Uses words {sound}, {sound}, and {sound}.",
-      "iconImage": "slapstick1",
-      "descriptionImage": "slapstick2",
-      "profileImage": "slapstick3"
+      "rule": "Use words {sound}, {sound}, and {sound}!",
+      "iconImage": "/slapstick1.png",
+      "descriptionImage": "/slapstick2.png",
+      "profileImage": "/slapstick3.png"
     }
   ]
 }
