@@ -26,6 +26,7 @@ public class WaitForActingScreen : GameScreen
 {
     public GameObject profile;
     public Image portrait;
+    public TextMeshProUGUI restriction;
     public TextMeshProUGUI name;
     public TextMeshProUGUI prompt;
     public TextMeshProUGUI promptAnswer;
@@ -68,10 +69,10 @@ public class WaitForActingScreen : GameScreen
         }
     }
 
-    public void OnValidate()
+    /*public void OnValidate()
     {
         SetProfile(testProfile);
-    }
+    }*/
 
     public void CreateProfileList()
     {
@@ -104,5 +105,6 @@ public class WaitForActingScreen : GameScreen
         portrait.sprite = p.character.GetProfileSprite();
         prompt.text = p.prompt;
         promptAnswer.text = p.promptAnswer;
+        restriction.text = p.character.rule;
     }
 }
