@@ -14,7 +14,7 @@ using static Unity.Collections.Unicode;
 using static UnityEditor.Rendering.CameraUI;
 
 [System.Serializable]
-public enum GameState { Lobby, CheckRole, WaitForPromptPicking, WaitForResponse, WaitForActing, WaitForVoting, RoundResults, GameResults};
+public enum GameState { Lobby, Cutscene, CheckRole, WaitForPromptPicking, WaitForResponse, WaitForActing, WaitForVoting, RoundResults, GameResults};
 
 [System.Serializable]
 public class GameManager : MonoBehaviour
@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public ScreenManager screenManager;
     public GameData gameData;
     public LobbyScreen lobbyScreen;
+
 
     //score boards
 
@@ -55,7 +56,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        SetState(GameState.WaitForPromptPicking);
+        SetState(GameState.Cutscene);
     }
 
     public List<T> GenerateRandomSubset<T>(List<T> list, int k)
@@ -152,6 +153,9 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.GameResults:
                 InitializeGameResults();
+                break;
+            case GameState.Cutscene:
+                InitializeCutscene();
                 break;
         }
     }
@@ -321,6 +325,11 @@ public class GameManager : MonoBehaviour
         screenManager.SetScreen("waitForGameResults");
     }
 
+
+    void InitializeCutscene()
+    {
+        screenManager.SetScreen("cutscene");
+    }
 
 
     void OnMessage(int from, JToken data)
