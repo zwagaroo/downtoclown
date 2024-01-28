@@ -6,6 +6,8 @@ public class CutsceneController : MonoBehaviour
     public VideoPlayer videoPlayer;
     public GameManager gameManager;
     public GameObject background;
+    float videoStartTime;
+    float minVideoSkipTime = 0.8f;
 
     void Start()
     {
@@ -16,11 +18,26 @@ public class CutsceneController : MonoBehaviour
     private void OnEnable()
     {
         background.SetActive(false);
+        videoStartTime = Time.time;
     }
 
     private void OnDisable()
     {
         background.SetActive(true);
+    }
+
+    private void Update()
+    {
+        if (Time.time - videoStartTime < minVideoSkipTime) return;
+
+        if (Input.anyKeyDown) {
+            Skip();
+        }
+    }
+
+    private void Skip()
+    {
+        OnVideoFinished(videoPlayer);
     }
 
     // This method is called when the video finishes playing
