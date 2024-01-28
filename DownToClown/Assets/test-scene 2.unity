@@ -281,7 +281,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &20357706
 RectTransform:
   m_ObjectHideFlags: 0
@@ -704,7 +704,7 @@ MonoBehaviour:
   m_margin: {x: -139.86497, y: 0, z: -141.19699, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &212545626
@@ -984,8 +984,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onCountdown: 0
   countdownTimer: {fileID: 0}
-  timerCooldown: 10
-  timer: 10
+  timerCooldown: 90
+  timer: 90
+  OnTimerEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &485440828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1390,7 +1393,8 @@ MonoBehaviour:
   gameData:
     prompts: []
     characters: []
-  currentPromptIndex: 0
+  currentRound: 0
+  currentPrompt: 
   initedRoles: 0
 --- !u!4 &923816380
 Transform:
@@ -1525,7 +1529,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: '60
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 759265b32534ef749bffa97dfed086eb, type: 2}
   m_sharedMaterial: {fileID: -2977833345673857916, guid: 759265b32534ef749bffa97dfed086eb, type: 2}
@@ -1593,7 +1599,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1117656660
@@ -2167,7 +2173,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1275896752
 RectTransform:
   m_ObjectHideFlags: 0
