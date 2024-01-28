@@ -267,7 +267,7 @@
 
   <body onload="window.app = new App()" style="font-family: outfit">
     <div id="lobby-waiting" class="view default-view">
-      LOBBY HERE.
+      Connected
     </div>
 
     <div id="waiting" class="view">
@@ -354,12 +354,38 @@
     </div>
 
     <div id="prompt-answer" class="view">
+      <style>
 
-      <h2><span id="myRoleRule"></span></h2>
-      <input type="text" id="myText" maxlength="75">
-      <button type="button" ontouchstart="submitAnswer()">
-        Submit
-      </button>
+        #myText
+        {
+            height:200px;
+            width: 75%;
+            background-color: rgb(255,172,206);
+            font-size:30pt;
+            font-family: "outfit";
+        }
+
+        #prompt-answer{
+          text-align: center;
+        }
+
+        #submit{
+          background-color: rgb(251,207,291);
+        }
+        
+
+      </style>
+      <div>
+        <h2><span id="myRoleRule"></span></h2>
+        <textarea type="textarea" id="myText" maxlength="75" rows="5" cols="33"> </textarea>>
+      </div>
+
+      <div>
+        <button type="button" ontouchstart="submitAnswer()" id = "submit">
+          Submit
+        </button>
+      </div>
+
     </div>
 
 
