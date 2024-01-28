@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
 
     public List<Dictionary<int, int>> voteResult = new();
 
+    public Dictionary<int, int> scores= new();
+
     public List<Dictionary<int, string>> prompt_answers = new List<Dictionary<int, string>>();
 
     public WaitForPromptPickingScreen WaitForPromptPickingScreen;
@@ -509,8 +511,15 @@ public class GameManager : MonoBehaviour
                     }
                     voteResult[currentRound][ClownShuffler.rounds[currentRound].roles[deviceIDs[i]]] += voteData[i];
                 }
+
+                if (!scores.ContainsKey(deviceIDs[i]))
+                {
+                    scores[deviceIDs[i]] = 0;
+                }
+                scores[deviceIDs[i]] += voteData[i];
             }
 
+            
             responseCount++;
 
             if (responseCount >= deviceIDs.Count)
