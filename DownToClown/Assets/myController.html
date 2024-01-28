@@ -46,7 +46,7 @@
       let prompts = null;
 
       function App() {
-          /* JavaScript / Functionality. Add functions and evens here */
+
           this.airconsole = new AirConsole({"orientation" : "portrait"});
           viewmanager = new AirConsoleViewManager(this.airconsole);
 
@@ -54,6 +54,7 @@
               console.log(data);
               const msg_type = data["msg_type"];
               switch (msg_type) {
+
               case "role_assignment":
                   console.log("ROLE CHANGE");
 
@@ -68,16 +69,31 @@
                   document.getElementById("myRoleDescription").innerHTML = roleDescription;
 
                   break;
+
               case "prompt_picking":
+                  console.log("PROMPT PICKING");
                   prompts = data["prompts"];
                   console.log(prompts);
-                  document.getElementById("prompt-1").innerHTML = "hi hi hi hi hi ";
-                  document.getElementById("prompt-2").innerHTML = "bye alskdjaslkdjasd n";
-                  document.getElementById("prompt-3").innerHTML = "screeN alskdjasldk";
-                  document.getElementById("prompt-4").innerHTML = "LOLOOL alskdjaslkdjasd";
-                  document.getElementById("prompt-5").innerHTML = "GODODO alskjdalskdjalskdj";
-              }
 
+                  viewmanager.controllersShow('prompt-picking');
+                  document.getElementById("prompt-1").innerHTML = prompts[0];
+                  document.getElementById("prompt-2").innerHTML = prompts[1];
+                  document.getElementById("prompt-3").innerHTML = prompts[2];
+                  document.getElementById("prompt-4").innerHTML = prompts[3];
+                  document.getElementById("prompt-5").innerHTML = prompts[4];
+
+                  break;
+              case "start_response":
+                  console.log("RESPONDING");
+                  viewmanager.controllersShow('prompt-answer');
+
+                  break;
+              case "wait":
+                  console.log("WAITING");
+                  viewmanager.controllersShow('lobby-waiting');
+
+                  break;
+              }
           };
 
           /*
@@ -134,12 +150,13 @@
       function submitAnswer() {
           let x = document.getElementById("myText").value;
           console.log(x);
-          window.app.sendMessageToScreen(x);
+          window.app.sendPromptAnswer(x);
       }
+
       function submitPrompt(buttonNumber) {
-          let x = document.getElementById(buttonNumber).textContent;
-          console.log(x.trim());
-          // window.app.sendMessageToScreen(x);
+          let x = document.getElementById(buttonNumber).textContent.trim();
+          console.log(x);
+          window.app.sendPickedPrompt(x);
       }
     </script>
   </head>
