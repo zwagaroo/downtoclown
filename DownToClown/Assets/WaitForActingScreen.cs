@@ -101,10 +101,11 @@ public class WaitForActingScreen : GameScreen
 
     public void SetProfile(Profile p)
     {
+        p.character = new Character(p.character, gameManager.currentRound);
         name.text = p.character.name;
         portrait.sprite = p.character.GetProfileSprite();
         prompt.text = p.prompt;
-        if(promptAnswer != null)
+        if(promptAnswer.text != null)
         {
             promptAnswer.text = p.promptAnswer;
         }

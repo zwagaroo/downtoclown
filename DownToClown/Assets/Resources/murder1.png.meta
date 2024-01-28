@@ -103,12 +103,12 @@ TextureImporter:
       name: murder1_0
       rect:
         serializedVersion: 2
-        x: 3
+        x: 0
         y: 0
-        width: 292
-        height: 296
+        width: 350
+        height: 350
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -123,7 +123,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 914438e38f2e0114a9e30114d9a6db84
     internalID: 0
     vertices: []
     indices: 

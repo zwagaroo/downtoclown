@@ -103,12 +103,12 @@ TextureImporter:
       name: standup1_0
       rect:
         serializedVersion: 2
-        x: 32
+        x: 0
         y: 0
-        width: 249
-        height: 300
+        width: 350
+        height: 350
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -123,7 +123,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 670de435503854944943253f22610d3f
     internalID: 0
     vertices: []
     indices: 

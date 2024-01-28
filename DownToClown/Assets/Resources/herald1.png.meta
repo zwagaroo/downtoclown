@@ -103,10 +103,10 @@ TextureImporter:
       name: herald1_0
       rect:
         serializedVersion: 2
-        x: 18
-        y: 18
-        width: 315
-        height: 315
+        x: 0
+        y: 0
+        width: 350
+        height: 350
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -123,14 +123,15 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ec4bca9a30ead694bbe241462535374c
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      herald1_0: 4026210480838068536
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
