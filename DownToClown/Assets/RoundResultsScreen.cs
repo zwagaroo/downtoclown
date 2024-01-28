@@ -59,7 +59,14 @@ public class RoundResultsScreen : GameScreen
     {
         name1.text = character1.name;
         name2.text = character2.name;
-        //Do later
+        if(character3 != null)
+        {
+            name3.text = character3.name;
+            image3.sprite = character3.GetIconSprite();
+        }
+        image1.sprite = character1.GetIconSprite();
+        image2.sprite = character2.GetIconSprite();
+        
 
     }
 

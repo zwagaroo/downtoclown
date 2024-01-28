@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 27b2b51bd1c507f41a914b424520b396
+guid: 92eba151b09e9864798d7dcdd0053388
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5314349708962315313
-    second: iphon_4_tinder_2_0
+      213: -3524291087767321364
+    second: ipone_4_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: iphon_4_tinder_2_0
+      name: ipone_4_0
       rect:
         serializedVersion: 2
         x: 830
@@ -114,8 +114,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 13c36e657ec50c940800000000000000
-      internalID: 5314349708962315313
+      spriteID: ce4cd8c9de3371fc0800000000000000
+      internalID: -3524291087767321364
       vertices: []
       indices: 
       edges: []
@@ -130,8 +130,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      iphon_4_tinder_2_0: 5314349708962315313
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
