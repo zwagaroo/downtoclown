@@ -30,13 +30,13 @@ public class PhoneController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void PhoneUp()
+    public void PhoneUp()
     {
         animator.Play(phoneUp);
         up = true;
     }
 
-    void PhoneDown()
+    public void PhoneDown()
     {
         animator.Play(phoneDown);
         up = false;

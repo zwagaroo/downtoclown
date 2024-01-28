@@ -69,10 +69,10 @@ public class WaitForActingScreen : GameScreen
         }
     }
 
-    /*public void OnValidate()
+    public void OnValidate()
     {
         SetProfile(testProfile);
-    }*/
+    }
 
     public void CreateProfileList()
     {
