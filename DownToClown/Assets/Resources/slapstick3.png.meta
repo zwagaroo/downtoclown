@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      slapstick3_0: 4644035941867135676
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
