@@ -2236,6 +2236,7 @@ MonoBehaviour:
   WaitForPromptPickingScreen: {fileID: 1799163459}
   waitForActingScreen: {fileID: 20357710}
   roundResultsScreen: {fileID: 2106608832}
+  phoneController: {fileID: 1654924121}
 --- !u!4 &923816380
 Transform:
   m_ObjectHideFlags: 0

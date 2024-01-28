@@ -44,7 +44,7 @@
       let descriptionImage = "";
 
       let cardCount = 0;
-      let vote = [];
+      var vote = [];
 
       let prompts = null;
 
@@ -70,6 +70,7 @@
                   viewmanager.controllersShow('role-change');
                   document.getElementById("myRole").innerHTML = roleName;
                   document.getElementById("myRoleDescription").innerHTML = roleDescription;
+                  document.getElementById("myRoleRule").innerHTML = roleRule;
 
                   break;
 
@@ -199,6 +200,12 @@
             cards.forEach((card, index) => {
               card.style.setProperty('--i', index);
             });
+
+          },
+          onLike: () => {
+            like.style.animationPlayState = 'running';
+            like.classList.toggle('trigger');
+            vote.push(1);
             if(cardCount == 0){
               var msg = {
                 msg_type: "vote_result",
@@ -210,15 +217,20 @@
               
             }
           },
-          onLike: () => {
-            like.style.animationPlayState = 'running';
-            like.classList.toggle('trigger');
-            vote.push(1);
-          },
           onDislike: () => {
             dislike.style.animationPlayState = 'running';
             dislike.classList.toggle('trigger');
             vote.push(0);
+            if(cardCount == 0){
+              var msg = {
+                msg_type: "vote_result",
+                vote_data: vote
+              }
+              window.app.sendMessageToScreen(msg);
+
+              setTimeout(()=> {viewmanager.controllersShow("waiting");}, 500);
+              
+            }
           }
         });
         
@@ -288,6 +300,8 @@
     </div>
 
     <div id="prompt-answer" class="view">
+
+      <h2><span id="myRoleRule"></span></h2>
       <input type="text" id="myText">
       <button type="button" ontouchstart="submitAnswer()">
         Submit

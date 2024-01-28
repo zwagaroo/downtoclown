@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     public int responseCount;
 
-    public List<Dictionary<int, int>> voteResult;
+    public List<Dictionary<int, int>> voteResult = new();
 
     public List<Dictionary<int, string>> prompt_answers = new List<Dictionary<int, string>>();
 
@@ -50,6 +50,8 @@ public class GameManager : MonoBehaviour
     public WaitForActingScreen waitForActingScreen;
 
     public RoundResultsScreen roundResultsScreen;
+
+    public PhoneController phoneController;
 
 
 
@@ -264,7 +266,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var (clownID, numVotes) in voteResult[currentRound])
         {
-            if(numVotes > max)
+            if(numVotes >= max)
             {
                 firstClown = clownID;
             }
@@ -275,7 +277,7 @@ public class GameManager : MonoBehaviour
         int secondClown = -1;
         foreach (var (clownID, numVotes) in voteResult[currentRound])
         {
-            if (numVotes > secondMax && clownID != firstClown)
+            if (numVotes >= secondMax && clownID != firstClown)
             {
                 secondClown = clownID;
             }
@@ -484,6 +486,8 @@ public class GameManager : MonoBehaviour
                 Debug.Log(JsonConvert.SerializeObject(characterResponses));
                 airConsole.Message(deviceID, new { msg_type = "start_voting", characterDataList = characterResponses });
             }
+
+            SetState(GameState.WaitForVoting);
         }
     }
 
@@ -493,17 +497,17 @@ public class GameManager : MonoBehaviour
         if (msg_type == "vote_result")
         {
             var deviceIDs = airConsole.GetControllerDeviceIds();
+            int[] voteData = data["vote_data"].ToObject<int[]>();
 
-            foreach (var deviceID in deviceIDs)
+            for(int i = 0; i < deviceIDs.Count; i++)
             {
-                List<int> voteData = JsonConvert.DeserializeObject<List<int>>((string)data["vote_data"]);
-
-                for(int i = 0; i < deviceIDs.Count; i++)
+                if (ClownShuffler.rounds[currentRound].roles[deviceIDs[i]] != 0)
                 {
-                    if (ClownShuffler.rounds[currentRound].roles[deviceIDs[i]] != 0)
+                    if (!voteResult[currentRound].ContainsKey(ClownShuffler.rounds[currentRound].roles[deviceIDs[i]]))
                     {
-                        voteResult[currentRound][ClownShuffler.rounds[currentRound].roles[deviceIDs[i]]] += voteData[i];
+                        voteResult[currentRound][ClownShuffler.rounds[currentRound].roles[deviceIDs[i]]] = 0;
                     }
+                    voteResult[currentRound][ClownShuffler.rounds[currentRound].roles[deviceIDs[i]]] += voteData[i];
                 }
             }
 
@@ -513,11 +517,20 @@ public class GameManager : MonoBehaviour
             {
 
                 //phone down, wait for a second and then set next state
+                phoneController.PhoneDown();
 
-                SetState(GameState.RoundResults);
+
+                StartCoroutine(SetNextStateAfterXSeconds(GameState.RoundResults, .7f));
             }
         }
     }
+
+    IEnumerator SetNextStateAfterXSeconds(GameState state, float time)
+    {
+        yield return new WaitForSeconds(time);
+        SetState(state);
+    }
+
 
     void OnMessageRoundResults(int from, JToken data, string msg_type)
     {
