@@ -104,7 +104,7 @@ public class WaitForActingScreen : GameScreen
         name.text = p.character.name;
         portrait.sprite = p.character.GetProfileSprite();
         prompt.text = p.prompt;
-        if(promptAnswer.text != null)
+        if(promptAnswer != null)
         {
             promptAnswer.text = p.promptAnswer;
         }
