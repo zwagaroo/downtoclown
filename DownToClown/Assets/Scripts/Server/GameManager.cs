@@ -296,12 +296,12 @@ public class GameManager : MonoBehaviour
 
         roundResultsScreen.SetWinners(gameData.characters[firstClown], gameData.characters[secondClown]);
 
-        screenManager.SetScreen("waitForRoundResults");
+        screenManager.SetScreen("roundResults");
     }
 
     void InitializeGameResults()
     {
-        screenManager.SetScreen("waitForGameResults");
+        screenManager.SetScreen("gameResults");
     }
 
 
