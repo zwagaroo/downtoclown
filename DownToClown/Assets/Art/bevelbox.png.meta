@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      bevelbox_0: -2030178327334084345
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
