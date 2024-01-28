@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WaitForResponseScreen : GameScreen
 {
     public bool onCountdown;
     public TextMeshProUGUI countdownTimer;
-    public float timerCooldown = 10f;
-    public float timer = 10f;
+    public float timerCooldown = 90f;
+    public float timer = 90f;
+    public UnityEvent OnTimerEnd;
     public override void Update()
     {
         UpdateCountdown();
@@ -24,6 +26,7 @@ public class WaitForResponseScreen : GameScreen
 
             if (Mathf.CeilToInt(timer) <= 0)
             {
+                OnTimerEnd.Invoke();
                 Advance();
             }
         }
@@ -42,6 +45,8 @@ public class WaitForResponseScreen : GameScreen
         countdownTimer.gameObject.SetActive(false);
 
     }
+
+
 
     public void Advance()
     {

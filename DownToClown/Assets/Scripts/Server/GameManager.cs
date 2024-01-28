@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using NDream.AirConsole;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -22,10 +23,19 @@ public class GameManager : MonoBehaviour
     List<int> availiablePrompts;
 
 
-    public int currentPromptIndex; 
+    public int currentRound;
+
+    public string currentPrompt; 
 
     public bool initedRoles = false;
 
+    public List<int> deviceIds;
+
+    public int responseCount;
+
+
+
+    List<Dictionary<int, string>> prompt_answers = new List<Dictionary<int, string>>();
 
     public List<T> GenerateRandomSubset<T>(List<T> list, int k)
     {
@@ -52,10 +62,10 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-
         UnityEngine.TextAsset gameDataAsset = Resources.Load<UnityEngine.TextAsset>("gameData");
         gameData = JsonConvert.DeserializeObject<GameData>(gameDataAsset.text);
         availiablePrompts = Enumerable.Range(0, gameData.prompts.Count).ToList();
+
 
         InitializeNewGame();
     }
@@ -66,7 +76,7 @@ public class GameManager : MonoBehaviour
         return GenerateRandomSubset<int>(availiablePrompts, NUM_PROMPT_OPTIONS);
     }
 
-    public void ChoosePromt(int promptIndex)
+    public void ChoosePrompt(int promptIndex)
     {
         availiablePrompts.Remove(promptIndex);
     }
@@ -75,6 +85,14 @@ public class GameManager : MonoBehaviour
     {
         SetState(GameState.Lobby);
         airConsole.onMessage += OnMessage;
+        airConsole.onConnect += OnConnect;
+        currentRound = 0;
+    }
+
+
+    //TODO FOR WHEN CHANI IS READY TO HOOK UP THE THINGY
+    public void OnConnect(int i)
+    {
     }
 
     public void SetState(GameState state)
@@ -125,35 +143,42 @@ public class GameManager : MonoBehaviour
 
         //TODO:: WE NEED TO NOT JUST SEND ARBITRARY INDEX
 
-        var currentRoles = ClownShuffler.rounds[ClownShuffler.currentRound].roles;
+        var currentRoles = ClownShuffler.rounds[currentRound].roles;
 
         for(int i = 0; i < deviceIDs.Count; i++)
         {
-            airConsole.Message(deviceIDs[i], new { msg_type = "role_assignment", role_index = currentRoles[deviceIDs[i]]});
+            int roleIndex = currentRoles[deviceIDs[i]];
+            airConsole.Message(deviceIDs[i], new { msg_type = "role_assignment", role = gameData.characters[roleIndex]});
         }
-
     }
 
     void InitializeWaitForPromptPicking()
     {
         screenManager.SetScreen("waitForPromptPicking");
 
-        int heraldId = ClownShuffler.rounds[ClownShuffler.currentRound].GetHerald();
-        List<int> clownIds = ClownShuffler.rounds[ClownShuffler.currentRound].GetClowns();
+        int heraldId = ClownShuffler.rounds[currentRound].GetHerald();
+        List<int> clownIds = ClownShuffler.rounds[currentRound].GetClowns();
 
         //send switch screen to everyone who is not heard to waiting screen just have {msg_type = "switch_screen", screen = "waiting"}
 
+        airConsole.Message(heraldId, new { msg_type = "prompt_picking", prompts = GetPromptOptions() });
+
         //send switch screen to Hearld for him to go prompt picking. Send seperately the five prompt indexes in a list.
 
-
-        //wait to receive
+        for(int i = 0; i < clownIds.Count; i++)
+        {
+            airConsole.Message(clownIds[i], new { msg_type = "wait" });
+        }
     }
 
     void InitializeWaitForResponse()
     {
+        prompt_answers.Add(new Dictionary<int, string>());
         screenManager.SetScreen("waitForResponse");
 
-        //set a timer for response, check if we have enough responses
+        responseCount = 0;
+
+
     }
 
     void InitializeWaitForActing()
@@ -184,7 +209,6 @@ public class GameManager : MonoBehaviour
     void OnMessage(int from, JToken data)
     {
 
-
         string msg_type = (string)data["msg_type"];
 
         if (msg_type == null)
@@ -192,11 +216,11 @@ public class GameManager : MonoBehaviour
             Debug.Log("NO MESSAGE TYPE");
         }
 
+
         if (msg_type == "switch_state")
         {
             SetState(GameState.CheckRole);
         }
-
 
         switch (currentState)
         {
@@ -235,25 +259,88 @@ public class GameManager : MonoBehaviour
 
     void OnMessageWaitForPromptPicking(int from, JToken data, string msg_type)
     {
-        if(msg_type == "prompt_picked")
+        if (msg_type == "prompt_picked")
         {
-            currentPromptIndex = (int)data["prompt_index"];
+            currentPrompt = (string)data["prompt"];
+            //display the prompt
+
+            //send everyone 
+
+            int heraldId = ClownShuffler.rounds[currentRound].GetHerald();
+            List<int> clownIds = ClownShuffler.rounds[currentRound].GetClowns();
+
+
+            airConsole.Message(heraldId, new { msg_type = "wait", prompts = GetPromptOptions() });
+
+            //send switch screen to Hearld for him to go prompt picking. Send seperately the five prompt indexes in a list.
+
+            for (int i = 0; i < clownIds.Count; i++)
+            {
+                airConsole.Message(clownIds[i], new { msg_type = "start_response" });
+            }
+
         }
     }
 
     void OnMessageWaitForResponse(int from, JToken data, string msg_type)
     {
+        if(msg_type == "prompt_answer")
+        {
+            prompt_answers[currentRound][from] = (string)data["answer"];
+            //add counter to get responses
 
+            responseCount += 1;
+
+            if (responseCount  == deviceIds.Count)
+            {
+                //done
+                int heraldId = ClownShuffler.rounds[currentRound].GetHerald();
+                List<int> clownIds = ClownShuffler.rounds[currentRound].GetClowns();
+
+
+                airConsole.Message(heraldId, new { msg_type = "start_acting", prompts = GetPromptOptions() });
+
+                //send switch screen to Hearld for him to go prompt picking. Send seperately the five prompt indexes in a list.
+
+                for (int i = 0; i < clownIds.Count; i++)
+                {
+                    airConsole.Message(clownIds[i], new { msg_type = "wait" });
+                }
+
+
+            }
+            //I will 
+        }
     }
 
     void OnMessageWaitForActing(int from, JToken data, string msg_type)
     {
+        if(msg_type == "done_acting")
+        {
+            var deviceIDs = airConsole.GetControllerDeviceIds();
 
+            foreach (var deviceID in deviceIDs)
+            {
+                airConsole.Message(deviceID, new { msg_type = "start_voting" });
+
+
+            }
+        }
     }
 
     void OnMessageWaitForVoting(int from, JToken data, string msg_type)
     {
+        ///TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if (msg_type == "vote_result")
+        {
+            var deviceIDs = airConsole.GetControllerDeviceIds();
 
+            foreach (var deviceID in deviceIDs)
+            {
+                airConsole.Message(deviceID, new { msg_type = "start_voting" });
+                
+            }
+        }
     }
 
     void OnMessageRoundResults(int from, JToken data, string msg_type)

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WaitForVotingScreen : GameScreen
 {
@@ -10,6 +11,7 @@ public class WaitForVotingScreen : GameScreen
     public TextMeshProUGUI countdownTimer;
     public float timerCooldown = 60f;
     public float timer = 60f;
+    public UnityEvent onTimerEnd;
 
     public override void Update()
     {
@@ -25,6 +27,7 @@ public class WaitForVotingScreen : GameScreen
 
             if (Mathf.CeilToInt(timer) <= 0)
             {
+                onTimerEnd.Invoke();
                 Advance();
             }
         }

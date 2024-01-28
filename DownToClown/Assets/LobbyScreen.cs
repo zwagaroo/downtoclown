@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class LobbyScreen : GameScreen
 {
@@ -14,6 +15,12 @@ public class LobbyScreen : GameScreen
     public bool onCountdown;
     public TextMeshProUGUI countdownTimer;
     public float timer = 10f;
+    public UnityEvent onTimerEnd;
+
+    public void Start()
+    {
+        onTimerEnd.AddListener(StartGame);
+    }
     public override void Update()
     {
         //for use for debugging
@@ -53,7 +60,7 @@ public class LobbyScreen : GameScreen
 
             if (Mathf.CeilToInt(timer) <= 0)
             {
-                StartGame();
+                onTimerEnd.Invoke();
             }
         }
     }
