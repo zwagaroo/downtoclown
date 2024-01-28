@@ -201,7 +201,9 @@
             });
             if(cardCount == 0){
               window.app.sendMessageToScreen(vote);
-              viewmanager.controllersShow("waiting");
+
+              setTimeout(()=> {viewmanager.controllersShow("waiting");}, 1000);
+              
             }
           },
           onLike: () => {
