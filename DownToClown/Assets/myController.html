@@ -4,9 +4,12 @@
     <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.8.0.js"></script>
     <style type="text/css">
       /* the style sheet dictates what our elements (buttons, backgrounds etc.) will look like. */
+      body {
+        background-image: ("clownbackground1.png");
+        background-repeat: repeat;
+      }
 
       #role-change {
-          border: 5px solid;
           position: absolute;
           top: 50%;
           transform: translate(0, -50%);
@@ -27,6 +30,11 @@
       @font-face {
           font-family: "bubble-rainbow";
           src: url("bubble-rainbow.ttf");
+      }
+
+      @font-face {
+        font-family: "outfit";
+        src: url("Outfit-VariableFont_wght.ttf");
       }
 
 
@@ -65,7 +73,7 @@
                   roleName = role.name;
                   roleRule = role.rule;
                   roleDescription = role.description;
-                  roleDescriptionImage = role.descriptionImage;
+                  roleDescriptionImage = role.descriptionImage + ".png";
 
                   viewmanager.controllersShow('role-change');
                   document.getElementById("myRole").innerHTML = roleName;
@@ -192,7 +200,7 @@
 
 
         const card = new Card({
-          imageUrl: charData["profileImage"],
+          imageUrl: (charData["profileImage"] + ".png"),
           name: charData["name"],
           description: response,
           onDismiss: ()=>{
@@ -315,8 +323,10 @@
     <div id="interact-button" class="view" ontouchstart="window.app.sendMessageToScreen('interact')"></div>
 
     <div id="role-change" class="view">
-      <h1>Your role is: <span id="myRole"></span></h1>
-      <h2><span id="myRoleDescription"></span></h2>
+      
+      <h1><span id="myRole" style="font-family: outfit"></span></h1>
+
+      <h2><span id="myRoleDescription" style="font-family: bubble-rainbow;"></span></h2>
 
       <img id = "descriptionImage" src="jester-image.png" width="300" height="300" alt="">
     </div>
