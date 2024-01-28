@@ -205,7 +205,7 @@ public class GameManager : MonoBehaviour
                 new
                 {
                     msg_type = "role_assignment",
-                    role = gameData.characters[round.roles[id]]
+                    role = new Character(gameData.characters[round.roles[id]])
                 });
         }
 
