@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System.Linq;
 
 public class LobbyScreen : GameScreen
 {
@@ -18,30 +19,32 @@ public class LobbyScreen : GameScreen
     public UnityEvent onTimerEnd;
     public GameManager gameManager;
 
+    public List<Character> clownsUsed;
+
     public void Start()
     {
         onTimerEnd.AddListener(StartGame);
     }
     public override void Update()
     {
-        //for use for debugging
-        if (Input.GetKeyDown(KeyCode.Z))
-                {
-                    AddPlayer();
-                }
+        ////for use for debugging
+        //if (Input.GetKeyDown(KeyCode.Z))
+        //        {
+        //            AddPlayer();
+        //        }
 
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            RemovePlayer();
-        }
+        //if (Input.GetKeyDown(KeyCode.X))
+        //{
+        //    RemovePlayer();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            if (canStart)
-            {
-                BeginCountdown();
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.C))
+        //{
+        //    if (canStart)
+        //    {
+        //        BeginCountdown();
+        //    }
+        //}
 
         UpdateCountdown();
     }
@@ -85,9 +88,24 @@ public class LobbyScreen : GameScreen
             return;
         }
         numPlayers += 1;
+
+        if (numPlayers == 1)
+        {
+            clownsUsed.Add(gameManager.gameData.characters[0]);
+        }
+        else
+        {
+            List<Character> allCharacters = gameManager.gameData.characters;
+            List<Character> validCharacters = allCharacters.Except(clownsUsed).ToList();
+            Character nextCharacter = validCharacters[Random.Range(0, validCharacters.Count)];
+            clownsUsed.Add(nextCharacter);
+        }
         GameObject temp = Instantiate(playerPrefab, playerList.transform);
         temp.GetComponentInChildren<TextMeshProUGUI>().text = "Player " + numPlayers;
-        if(numPlayers >= 3)
+        temp.GetComponent<Image>().sprite = clownsUsed[clownsUsed.Count - 1].GetIconSprite();
+        Debug.Log(clownsUsed[clownsUsed.Count - 1].GetIconSprite().name);
+
+        if (numPlayers >= 3)
         {
             EnableStart();
         }
