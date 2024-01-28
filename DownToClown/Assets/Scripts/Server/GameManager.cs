@@ -283,16 +283,16 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        /*        int thirdMax = 0;
+        int thirdMax = 0;
 
-                int thirdClown = -1;
-                foreach (var (clownID, numVotes) in voteResult[currentRound])
-                {
-                    if (numVotes > thirdMax && clownID != firstClown && clownID != secondClown)
-                    {
-                        thirdClown = clownID;
-                    }
-                }*/
+        int thirdClown = -1;
+        foreach (var (clownID, numVotes) in voteResult[currentRound])
+        {
+            if (numVotes > thirdMax && clownID != firstClown && clownID != secondClown)
+            {
+                thirdClown = clownID;
+            }
+        }
 
         roundResultsScreen.SetWinners(gameData.characters[firstClown], gameData.characters[secondClown]);
 
