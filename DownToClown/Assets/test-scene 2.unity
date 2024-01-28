@@ -201,18 +201,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 485440833}
-        m_TargetAssemblyTypeName: LobbyScreen, Assembly-CSharp
-        m_MethodName: BeginCountdown
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 4708470}
         m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
         m_MethodName: set_interactable
@@ -223,6 +211,30 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 485440833}
+        m_TargetAssemblyTypeName: LobbyScreen, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 849906392}
+        m_TargetAssemblyTypeName: ScreenManager, Assembly-CSharp
+        m_MethodName: SetScreen
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: waitforpromptpicking
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &4708471
@@ -280,7 +292,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &20357706
 RectTransform:
   m_ObjectHideFlags: 0
@@ -330,7 +342,9 @@ MonoBehaviour:
   prompt: {fileID: 0}
   promptAnswer: {fileID: 0}
   profiles: []
-  onCountdown: 0
+  currentProfileIndex: 0
+  onCountdown: 1
+  gameManager: {fileID: 923816379}
   testProfile:
     character:
       id: 0
@@ -342,6 +356,9 @@ MonoBehaviour:
       profileImage: 
     prompt: 
     promptAnswer: 
+  onAdvance:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &100562911
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,9 +1025,34 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
+          m_StringArgument: waitForActing
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 347565452}
+        m_TargetAssemblyTypeName: WaitForResponseScreen, Assembly-CSharp
+        m_MethodName: Advance
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
           m_StringArgument: waitforacting
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 20357710}
+        m_TargetAssemblyTypeName: WaitForActingScreen, Assembly-CSharp
+        m_MethodName: CreateProfileList
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: waitforacting
+          m_BoolArgument: 0
+        m_CallState: 2
+  gameManager: {fileID: 923816379}
 --- !u!1 &485440828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,6 +1140,7 @@ MonoBehaviour:
           m_StringArgument: waitforpromptpicking
           m_BoolArgument: 0
         m_CallState: 2
+  gameManager: {fileID: 923816379}
 --- !u!1 &591462858
 GameObject:
   m_ObjectHideFlags: 0
@@ -1270,7 +1313,7 @@ MonoBehaviour:
   webViewLoadingSprite: {fileID: 0}
   browserStartMode: 0
   devGameId: 
-  LocalIpOverride: https://sports-frontpage-has-sympathy.trycloudflare.com
+  LocalIpOverride: 
 --- !u!4 &635519550
 Transform:
   m_ObjectHideFlags: 0
@@ -1540,18 +1583,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screens:
   - name: lobby
-    screen: {fileID: 0}
-  - name: waitforpromptpicking
+    screen: {fileID: 485440833}
+  - name: waitForPromptPicking
     screen: {fileID: 1799163459}
-  - name: waitforresponse
+  - name: waitForResponse
     screen: {fileID: 347565452}
-  - name: waitforacting
-    screen: {fileID: 347565452}
-  - name: waitforvoting
+  - name: waitForActing
+    screen: {fileID: 20357710}
+  - name: waitForVoting
     screen: {fileID: 1275896756}
-  - name: roundresults
+  - name: roundResults
     screen: {fileID: 2106608832}
-  - name: gameresults
+  - name: gameResults
     screen: {fileID: 2072892197}
   currentScreen: {fileID: 0}
 --- !u!4 &849906393
@@ -1603,8 +1646,22 @@ MonoBehaviour:
   screenManager: {fileID: 849906392}
   gameData:
     prompts: []
-    characters: []
-  lobbyScreen: {fileID: 0}
+    characters:
+    - id: 0
+      name: 
+      description: 
+      rule: 
+      iconImage: 
+      descriptionImage: 
+      profileImage: 
+    - id: 0
+      name: 
+      description: 
+      rule: 
+      iconImage: 
+      descriptionImage: 
+      profileImage: 
+  lobbyScreen: {fileID: 485440833}
   currentRound: 0
   currentPrompt: 
   initedRoles: 0
@@ -3053,7 +3110,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onPromptChosen:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 849906392}
+        m_TargetAssemblyTypeName: ScreenManager, Assembly-CSharp
+        m_MethodName: SetScreen
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: waitforresponse
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 347565452}
+        m_TargetAssemblyTypeName: WaitForResponseScreen, Assembly-CSharp
+        m_MethodName: BeginCountdown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: waitforresponse
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1902036165
 GameObject:
   m_ObjectHideFlags: 0
@@ -3403,7 +3484,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2106608828
 RectTransform:
   m_ObjectHideFlags: 0

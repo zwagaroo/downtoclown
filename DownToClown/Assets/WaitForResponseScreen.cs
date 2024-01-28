@@ -12,6 +12,7 @@ public class WaitForResponseScreen : GameScreen
     public float timerCooldown = 90f;
     public float timer = 90f;
     public UnityEvent OnTimerEnd;
+    public GameManager gameManager;
     public override void Update()
     {
         UpdateCountdown();
@@ -27,7 +28,6 @@ public class WaitForResponseScreen : GameScreen
             if (Mathf.CeilToInt(timer) <= 0)
             {
                 OnTimerEnd.Invoke();
-                Advance();
             }
         }
     }
@@ -50,6 +50,6 @@ public class WaitForResponseScreen : GameScreen
 
     public void Advance()
     {
-        //whatever you need to do once time runs out or everyone responded
+        gameManager.SetState(GameState.WaitForActing);
     }
 }

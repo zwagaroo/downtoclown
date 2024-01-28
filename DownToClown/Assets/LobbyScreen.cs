@@ -16,6 +16,7 @@ public class LobbyScreen : GameScreen
     public TextMeshProUGUI countdownTimer;
     public float timer = 10f;
     public UnityEvent onTimerEnd;
+    public GameManager gameManager;
 
     public void Start()
     {
@@ -74,8 +75,7 @@ public class LobbyScreen : GameScreen
 
     public void StartGame()
     {
-        //TODO: start game lol
-        this.gameObject.SetActive(false);
+        gameManager.SetState(GameState.WaitForPromptPicking);
     }
 
     public void AddPlayer()

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.Events;
+using NDream.AirConsole;
 
 [System.Serializable]
 public class Profile
@@ -20,14 +22,47 @@ public class WaitForActingScreen : GameScreen
     public TextMeshProUGUI prompt;
     public TextMeshProUGUI promptAnswer;
     public List<Profile> profiles;
+    public int currentProfileIndex;
     public bool onCountdown;
+    public GameManager gameManager;
 
 
     public Profile testProfile;
+    public UnityEvent onAdvance;
+
+    public void Update()
+    {
+        if (Input.GetKey(KeyCode.LeftArrow)) {
+            if(currentProfileIndex == 0)
+            {
+                return;
+            }
+
+            SetProfile(profiles[currentProfileIndex - 1]);
+            currentProfileIndex--;
+
+        }
+
+        if (Input.GetKey(KeyCode.RightArrow)){
+
+            if (currentProfileIndex >= (profiles.Count - 1))
+            {
+                onAdvance.Invoke();
+                return;
+            }
+
+            SetProfile(profiles[currentProfileIndex + 1]);
+            currentProfileIndex++;
+        }
+    }
 
     public void OnValidate()
     {
         SetProfile(testProfile);
+    }
+
+    public void CreateProfileList()
+    {
     }
 
     public void HideProfile()

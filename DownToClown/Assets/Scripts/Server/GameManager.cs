@@ -36,13 +36,13 @@ public class GameManager : MonoBehaviour
 
     public bool initedRoles = false;
 
-    public List<int> deviceIds;
+    public List<int> deviceIds = new List<int>();
 
     public int responseCount;
 
     public List<Dictionary<int, int>> voteResult;
 
-    List<Dictionary<int, string>> prompt_answers = new List<Dictionary<int, string>>();
+    public List<Dictionary<int, string>> prompt_answers = new List<Dictionary<int, string>>();
 
 
 
