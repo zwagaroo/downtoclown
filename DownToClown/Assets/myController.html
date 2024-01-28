@@ -34,6 +34,7 @@
 
       @font-face {
         font-family: "outfit";
+        color: rgb(54, 6, 20) !important;
         src: url("Outfit-VariableFont_wght.ttf");
       }
 
@@ -264,7 +265,7 @@
     </script>
   </head>
 
-  <body onload="window.app = new App()" style="font-family: bubble-rainbow">
+  <body onload="window.app = new App()" style="font-family: outfit">
     <div id="lobby-waiting" class="view default-view">
       LOBBY HERE.
     </div>
@@ -280,6 +281,50 @@
     </div>
 
     <div id="prompt-picking" class="view">
+
+      <style> 
+        ul {
+          list-style-type: none;
+          text-align: center;
+          margin: 20px;
+        }
+        #prompt-1 {
+          background-color: rgb(251,207,291);
+          padding: 15px 32px;
+          border-radius: 4px; 
+          font-size: 15px;
+          font-weight: bold;
+
+        }
+        #prompt-2 {
+          background-color: rgb(251,207,291);
+          padding: 15px 32px;
+          border-radius: 4px;
+          font-size: 15px;
+          font-weight: bold;
+        }
+        #prompt-3 {
+          background-color: rgb(251,207,291);
+          padding: 15px 32px;
+          border-radius: 4px;
+          font-size: 15px;
+          font-weight: bold;
+        }
+        #prompt-4 {
+          background-color: rgb(251,207,291);
+          padding: 15px 32px;
+          border-radius: 4px;
+          font-size: 15px;
+          font-weight: bold;
+        }
+        #prompt-5 {
+          background-color: rgb(251,207,291);
+          padding: 15px 32px;
+          border-radius: 4px;
+          font-size: 15px;
+          font-weight: bold;
+        }
+      </style>
       <ul>
         <li>
           <button id="prompt-1" type="button" ontouchstart="submitPrompt('prompt-1')">
@@ -311,7 +356,7 @@
     <div id="prompt-answer" class="view">
 
       <h2><span id="myRoleRule"></span></h2>
-      <input type="text" id="myText">
+      <input type="text" id="myText" maxlength="75">
       <button type="button" ontouchstart="submitAnswer()">
         Submit
       </button>
@@ -324,9 +369,18 @@
 
     <div id="role-change" class="view">
       
-      <h1><span id="myRole" style="font-family: outfit"></span></h1>
+      <style>
+        #myRole {
+          color: rgb(54,6,20);
+        }
 
-      <h2><span id="myRoleDescription" style="font-family: bubble-rainbow;"></span></h2>
+        #myRoleDescription {
+          color:rgb(86, 10, 32);
+        }
+      </style>
+      <h1><span id="myRole"></span></h1>
+
+      <h2><span id="myRoleDescription"></span></h2>
 
       <img id = "descriptionImage" src="jester-image.png" width="300" height="300" alt="">
     </div>
