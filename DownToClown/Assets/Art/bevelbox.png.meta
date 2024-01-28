@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5f43bce503f60c2448bdbfb873b43f3c
+guid: 7c675445cd0cc6b4eae10bed254555c6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8049563653381386852
-    second: clownbackground1_0
+      213: -2030178327334084345
+    second: bevelbox_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: clownbackground1_0
+      name: bevelbox_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 5000
-        height: 5000
+        width: 2502
+        height: 2002
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -114,8 +114,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 46271bc8e7bc5bf60800000000000000
-      internalID: 8049563653381386852
+      spriteID: 7012e80519b53d3e0800000000000000
+      internalID: -2030178327334084345
       vertices: []
       indices: 
       edges: []
@@ -130,8 +130,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      clownbackground1_0: 8049563653381386852
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

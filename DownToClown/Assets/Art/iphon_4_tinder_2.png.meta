@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5f43bce503f60c2448bdbfb873b43f3c
+guid: 27b2b51bd1c507f41a914b424520b396
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8049563653381386852
-    second: clownbackground1_0
+      213: 5314349708962315313
+    second: iphon_4_tinder_2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: clownbackground1_0
+      name: iphon_4_tinder_2_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 5000
-        height: 5000
+        x: 830
+        y: 200
+        width: 1225
+        height: 1592
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -114,8 +114,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 46271bc8e7bc5bf60800000000000000
-      internalID: 8049563653381386852
+      spriteID: 13c36e657ec50c940800000000000000
+      internalID: 5314349708962315313
       vertices: []
       indices: 
       edges: []
@@ -130,8 +130,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      clownbackground1_0: 8049563653381386852
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
