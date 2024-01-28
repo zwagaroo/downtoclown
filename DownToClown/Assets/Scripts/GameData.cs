@@ -47,12 +47,12 @@ public class Character
         return LoadSprite(profileImage);
     }
 
-    public Character(Character character)
+    public Character(Character character, int round)
     {
         this.id = character.id;
         this.name = character.name;
         this.description = character.description;
-        this.rule = ReplaceSounds(character.rule);
+        this.rule = ReplaceSounds(character.rule, round);
 
         this.iconImage = character.iconImage;
         this.descriptionImage = character.descriptionImage;
@@ -98,9 +98,9 @@ public class Character
         "Mwah"
     };
 
-    static string ReplaceSounds(string text)
+    static string ReplaceSounds(string text, int round)
     {
-        int seed = (int)DateTime.Now.Ticks & 0x0000FFFF;
+        int seed = (int)DateTime.Now.Ticks & 0x0000FFFF + round;
         Random random = new Random(seed);
         string pattern = @"\{sound\}";
 
