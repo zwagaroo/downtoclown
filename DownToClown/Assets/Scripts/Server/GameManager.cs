@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     public int currentRound;
 
-    public string currentPrompt; 
+    public string currentPrompt;
 
     public bool initedRoles = false;
 
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
 
     List<Dictionary<int, string>> prompt_answers = new List<Dictionary<int, string>>();
 
-    
+
 
     public void StartGame()
     {
@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
 
     public void InitializeState(GameState state)
     {
-        switch(state)
+        switch (state)
         {
             case GameState.Lobby:
                 InitializeLobbyState();
@@ -133,10 +133,10 @@ public class GameManager : MonoBehaviour
                 InitializeWaitForVoting();
                 break;
             case GameState.RoundResults:
-                InitializeRoundResults(); 
+                InitializeRoundResults();
                 break;
             case GameState.GameResults:
-                InitializeGameResults(); 
+                InitializeGameResults();
                 break;
         }
     }
@@ -170,17 +170,52 @@ public class GameManager : MonoBehaviour
 
         Round round = ClownShuffler.rounds[currentRound];
         int heraldId = round.GetHerald();
-        List<int> clownIds = round.GetClowns();
 
+        Debug.Log(heraldId);
+        List<int> clownIds = round.GetClowns();
         //send switch screen to everyone who is not heard to waiting screen just have {msg_type = "switch_screen", screen = "waiting"}
 
+
+        /*        foreach (int id in clownIds)
+                {
+                    Debug.Log("role assignment to id " + id);
+
+                    airConsole.Message(id,
+                        new
+                        {
+                            msg_type = "role_assignment",
+                            role = gameData.characters[round.roles[id]]
+                        });
+                }
+
+                Debug.Log("prompt picking " + heraldId);
+                airConsole.Message(heraldId,
+                        new
+                        {
+                            msg_type = "prompt_picking",
+                            role = gameData.characters[round.roles[heraldId]],
+                            prompts = GetPromptOptions()
+                        });*/
+
+        StartCoroutine(Test(clownIds, round, heraldId));
+    }
+
+    IEnumerator Test(List<int> clownIds, Round round, int heraldId){
         foreach (int id in clownIds)
         {
+            Debug.Log("role assignment to id " + id);
+
             airConsole.Message(id,
-                new { msg_type = "role_assignment",
-                          role = gameData.characters[round.roles[id]] });
+                new
+                {
+                    msg_type = "role_assignment",
+                    role = gameData.characters[round.roles[id]]
+                });
+
+            yield return new WaitForSeconds(.5f);
         }
 
+        Debug.Log("prompt picking " + heraldId);
         airConsole.Message(heraldId,
                 new
                 {
@@ -188,8 +223,6 @@ public class GameManager : MonoBehaviour
                     role = gameData.characters[round.roles[heraldId]],
                     prompts = GetPromptOptions()
                 });
-
-       
     }
 
     void InitializeWaitForResponse()

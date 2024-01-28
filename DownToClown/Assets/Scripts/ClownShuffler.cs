@@ -107,7 +107,7 @@ public class ClownShuffler : MonoBehaviour
         {
             for (int player = 0; player < players.Count; player++)
             {
-                rounds[round].roles[player] = (round + player) % players.Count;
+                rounds[round].roles[players[player]] = characters[(round + player) % players.Count];
             }
         }
     }
