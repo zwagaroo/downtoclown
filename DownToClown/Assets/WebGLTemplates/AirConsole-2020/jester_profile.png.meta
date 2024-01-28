@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 3db8c1b800516204b89ef88fbd42b890
+guid: 8b576ddfc05f9ad4cb0b021c9b08e4c1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4895499444567258611
-    second: startbutton_0
-  - first:
-      213: 5068878288513805368
-    second: startbutton_1
+      213: 9222715915577393560
+    second: jestericon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -116,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: startbutton_0
+      name: jestericon_0
       rect:
         serializedVersion: 2
-        x: 12
-        y: 30
-        width: 1181
-        height: 690
+        x: 11
+        y: 0
+        width: 264
+        height: 287
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,29 +127,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3f5bd8faece40f340800000000000000
-      internalID: 4895499444567258611
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: startbutton_1
-      rect:
-        serializedVersion: 2
-        x: 559
-        y: 690
-        width: 87
-        height: 92
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 83c2e8482f5485640800000000000000
-      internalID: 5068878288513805368
+      spriteID: 891055cd24badff70800000000000000
+      internalID: 9222715915577393560
       vertices: []
       indices: 
       edges: []
@@ -168,8 +144,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      startbutton_0: 4895499444567258611
-      startbutton_1: 5068878288513805368
+      jestericon_0: 9222715915577393560
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

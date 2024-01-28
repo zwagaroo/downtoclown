@@ -335,10 +335,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 768478251}
-  portrait: {fileID: 1285980290}
-  name: {fileID: 70536922}
-  prompt: {fileID: 1950872837}
-  promptAnswer: {fileID: 1355299205}
+  portrait: {fileID: 4708471}
+  name: {fileID: 0}
+  prompt: {fileID: 0}
+  promptAnswer: {fileID: 0}
   profiles: []
   onCountdown: 0
   testProfile:
@@ -352,17 +352,6 @@ MonoBehaviour:
       profileImage: 
     prompt: 
     promptAnswer: 
---- !u!114 &70536922 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8621780836150601961, guid: 13f56db4abd27d644974fb233f5a31b3, type: 3}
-  m_PrefabInstance: {fileID: 817986608679039900}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &100562911
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,6 +546,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &160787424
 Canvas:
   m_ObjectHideFlags: 0
@@ -1019,10 +1009,10 @@ MonoBehaviour:
   OnTimerEnd:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 849906392}
+      - m_Target: {fileID: 923816378}
         m_TargetAssemblyTypeName: ScreenManager, Assembly-CSharp
-        m_MethodName: SetScreen
-        m_Mode: 5
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1302,9 +1292,9 @@ MonoBehaviour:
   androidTvGameVersion: 
   androidUIResizeMode: 0
   webViewLoadingSprite: {fileID: 0}
-  browserStartMode: 2
+  browserStartMode: 3
   devGameId: 
-  LocalIpOverride: https://lexmark-filled-noise-salon.trycloudflare.com
+  LocalIpOverride: https://corpus-pal-weblogs-crime.trycloudflare.com
 --- !u!4 &635519550
 Transform:
   m_ObjectHideFlags: 0
@@ -1554,13 +1544,13 @@ MonoBehaviour:
     screen: {fileID: 1799163459}
   - name: waitForResponse
     screen: {fileID: 347565452}
-  - name: waitforacting
-    screen: {fileID: 347565452}
-  - name: waitforvoting
+  - name: waitForActing
+    screen: {fileID: 20357710}
+  - name: waitForVoting
     screen: {fileID: 1275896756}
-  - name: roundresults
+  - name: roundResults
     screen: {fileID: 2106608832}
-  - name: gameresults
+  - name: gameResults
     screen: {fileID: 2072892197}
   currentScreen: {fileID: 0}
 --- !u!4 &849906393
@@ -2438,36 +2428,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2800537a79dc7e44f989ac78c60de3cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onCountdown: 0
-  countdownTimer: {fileID: 1117656659}
-  timerCooldown: 60
-  timer: 60
-  onTimerEnd:
+  onVotingEnd:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 849906392}
-        m_TargetAssemblyTypeName: ScreenManager, Assembly-CSharp
-        m_MethodName: SetScreen
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: roundresults
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1285980290 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8467206016986341172, guid: 13f56db4abd27d644974fb233f5a31b3, type: 3}
-  m_PrefabInstance: {fileID: 817986608679039900}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+      m_Calls: []
 --- !u!1 &1314421536
 GameObject:
   m_ObjectHideFlags: 0
@@ -2742,17 +2705,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328138961}
   m_CullTransparentMesh: 1
---- !u!114 &1355299205 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9161684160477149338, guid: 13f56db4abd27d644974fb233f5a31b3, type: 3}
-  m_PrefabInstance: {fileID: 817986608679039900}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1543288511
 GameObject:
   m_ObjectHideFlags: 0
@@ -3087,6 +3039,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ac0f9bd6de2cf47b7335fe04b676bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onPromptChosen:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1827313513
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3329,17 +3284,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1902036165}
   m_CullTransparentMesh: 1
---- !u!114 &1950872837 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 833514869263735683, guid: 13f56db4abd27d644974fb233f5a31b3, type: 3}
-  m_PrefabInstance: {fileID: 817986608679039900}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2069382163
 GameObject:
   m_ObjectHideFlags: 0
@@ -3596,6 +3540,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 5115966324496385998, guid: 13f56db4abd27d644974fb233f5a31b3, type: 3}
+  onCountdown: 0
+  countdownTimer: {fileID: 0}
+  timerCooldown: 5
+  timer: 5
+  OnTimerEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &817986608679039900
 PrefabInstance:
   m_ObjectHideFlags: 0

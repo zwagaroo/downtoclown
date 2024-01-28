@@ -40,43 +40,11 @@ body {
   transition: transform 0.5s;
 }
 
-
-.card {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  border-radius: 20px;
-  overflow: hidden;
-  background-color: #f0f0f0; /* Default background color */
-  display: flex;
-  flex-direction: column;
-  transform: translateZ(calc(-30px * var(--i))) translateY(calc(-20px * var(--i))) rotate(calc(-4deg * var(--i)));
-  filter: drop-shadow(2px 2px 20px rgba(0, 0, 0, 0.5));
-  cursor: pointer;
-  user-select: none;
-  transition: transform 0.5s;
-}
-
-.card-name,
-.card-description {
-  text-align: center;
-  padding: 0 10px;
-}
-
-.card-name {
-  margin-top: 10px;
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-.card-description {
-  margin-top: 5px;
-  font-size: 1em;
-}
-
 .card img {
   width: 100%;
-  display: block; /* Ensures the image does not have any extra space below it */
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
 }
 
 #like,

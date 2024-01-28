@@ -7,13 +7,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor.U2D.Animation;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using static Unity.Collections.Unicode;
 using static UnityEditor.Rendering.CameraUI;
 
+[System.Serializable]
 public enum GameState { Lobby, CheckRole, WaitForPromptPicking, WaitForResponse, WaitForActing, WaitForVoting, RoundResults, GameResults};
 
+[System.Serializable]
 public class GameManager : MonoBehaviour
 {
     public GameState currentState;
@@ -22,8 +25,10 @@ public class GameManager : MonoBehaviour
     public GameData gameData;
     public LobbyScreen lobbyScreen;
 
-    List<int> availiablePrompts;
+    //score boards
 
+
+    List<int> availiablePrompts;
 
     public int currentRound;
 
@@ -35,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     public int responseCount;
 
-
+    public List<Dictionary<int, int>> voteResult;
 
     List<Dictionary<int, string>> prompt_answers = new List<Dictionary<int, string>>();
 
@@ -98,6 +103,13 @@ public class GameManager : MonoBehaviour
         currentRound = 0;
     }
 
+    public void SetState(GameState state)
+    {
+        currentState = state;
+        InitializeState(currentState);
+    }
+
+
 
     //TODO FOR WHEN CHANI IS READY TO HOOK UP THE THINGY
     public void OnConnect(int i)
@@ -105,11 +117,7 @@ public class GameManager : MonoBehaviour
         lobbyScreen.AddPlayer();
     }
 
-    public void SetState(GameState state)
-    {
-        currentState = state;
-        InitializeState(currentState);
-    }
+
 
 
     public void InitializeState(GameState state)
@@ -200,7 +208,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(Test(clownIds, round, heraldId));
     }
 
-    IEnumerator Test(List<int> clownIds, Round round, int heraldId){
+    IEnumerator Test(List<int> clownIds, Round round, int heraldId) {
         foreach (int id in clownIds)
         {
             Debug.Log("role assignment to id " + id);
@@ -249,6 +257,8 @@ public class GameManager : MonoBehaviour
     void InitializeWaitForVoting()
     {
         screenManager.SetScreen("waitForVoting");
+
+        voteResult.Add(new Dictionary<int, int>());
 
         //send voting message
     }
@@ -349,32 +359,71 @@ public class GameManager : MonoBehaviour
                         msg_type = "wait"
                     });
 
+            SetState(GameState.WaitForResponse);
+        }
+    }
+    public void StopWaitingForResponse()
+    {
+        if (currentState == GameState.WaitForResponse)
+        {
+            int heraldId = ClownShuffler.rounds[currentRound].GetHerald();
+            List<int> clownIds = ClownShuffler.rounds[currentRound].GetClowns();
+
+            airConsole.Message(heraldId, new { msg_type = "start_acting", prompts = GetPromptOptions() });
+
+            //send switch screen to Hearld for him to go prompt picking. Send seperately the five prompt indexes in a list
+            for (int i = 0; i < clownIds.Count; i++)
+            {
+                airConsole.Message(clownIds[i], new { msg_type = "wait" });
+            }
+            SetState(GameState.WaitForActing);
         }
     }
 
     void OnMessageWaitForResponse(int from, JToken data, string msg_type)
     {
-        if(msg_type == "prompt_answer")
+        if (msg_type == "prompt_answer")
         {
             prompt_answers[currentRound][from] = (string)data["answer"];
             //add counter to get responses
 
             responseCount += 1;
 
-            if (responseCount  >= deviceIds.Count-1)
+
+            if (responseCount >= airConsole.GetControllerDeviceIds().Count - 1)
             {
+
+
                 int heraldId = ClownShuffler.rounds[currentRound].GetHerald();
+
+
                 List<int> clownIds = ClownShuffler.rounds[currentRound].GetClowns();
 
-                airConsole.Message(heraldId, new { msg_type = "start_acting", prompts = GetPromptOptions() });
+                airConsole.Message(heraldId, new { msg_type = "start_acting" });
 
                 //send switch screen to Hearld for him to go prompt picking. Send seperately the five prompt indexes in a list
                 for (int i = 0; i < clownIds.Count; i++)
                 {
                     airConsole.Message(clownIds[i], new { msg_type = "wait" });
                 }
+
+                SetState(GameState.WaitForActing);
             }
             //I will 
+
+
+        }
+    }
+
+    [System.Serializable]
+    public struct CharacterResponse{
+        public Character character;
+        public string response;
+
+        public CharacterResponse(Character character, string response)
+        {
+            this.character = character;
+            this.response = response;
         }
     }
 
@@ -384,10 +433,20 @@ public class GameManager : MonoBehaviour
         {
             var deviceIDs = airConsole.GetControllerDeviceIds();
 
+            List< CharacterResponse> characterResponses = new();
+
             foreach (var deviceID in deviceIDs)
             {
-                airConsole.Message(deviceID, new { msg_type = "start_voting" });
+                if (ClownShuffler.rounds[currentRound].roles[deviceID] != 0)
+                {
+                    characterResponses.Add(new CharacterResponse(gameData.characters[ClownShuffler.rounds[currentRound].roles[deviceID]], prompt_answers[currentRound][deviceID]));
+                }
+            }
 
+            foreach (var deviceID in deviceIDs)
+            {
+                Debug.Log(JsonConvert.SerializeObject(characterResponses));
+                airConsole.Message(deviceID, new { msg_type = "start_voting", characterDataList = characterResponses });
             }
         }
     }
@@ -401,8 +460,15 @@ public class GameManager : MonoBehaviour
 
             foreach (var deviceID in deviceIDs)
             {
-                airConsole.Message(deviceID, new { msg_type = "start_voting" });
-                
+                List<int> voteData = JsonConvert.DeserializeObject<List<int>>((string)data["vote_data"]);
+
+                for(int i = 0; i < deviceIDs.Count; i++)
+                {
+                    if (ClownShuffler.rounds[currentRound].roles[deviceIDs[i]] != 0)
+                    {
+                        voteResult[currentRound][ClownShuffler.rounds[currentRound].roles[deviceIDs[i]]] += voteData[i];
+                    }
+                }
             }
         }
     }

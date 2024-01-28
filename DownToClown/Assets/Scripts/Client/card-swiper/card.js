@@ -99,7 +99,7 @@ class Card {
     // prevent card from being dragged
     this.element.addEventListener('dragstart', (e) => {
       e.preventDefault();
-    });
+    }); 
   }
 
   #handleMove = (x, y) => {
@@ -108,7 +108,7 @@ class Card {
     const rotate = this.#offsetX * 0.1;
     this.element.style.transform = `translate(${this.#offsetX}px, ${this.#offsetY}px) rotate(${rotate}deg)`;
     // dismiss card
-    if (Math.abs(this.#offsetX) > this.element.clientWidth * 0.7) {
+    if (Math.abs(this.#offsetX) > this.element.clientWidth * 0.4) {
       this.#dismiss(this.#offsetX > 0 ? 1 : -1);
     }
   }
