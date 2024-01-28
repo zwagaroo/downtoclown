@@ -327,7 +327,19 @@ MonoBehaviour:
   name: {fileID: 70536922}
   prompt: {fileID: 1950872837}
   promptAnswer: {fileID: 1355299205}
+  profiles: []
   onCountdown: 0
+  testProfile:
+    character:
+      id: 0
+      name: 
+      description: 
+      rule: 
+      iconImage: 
+      descriptionImage: 
+      profileImage: 
+    prompt: 
+    promptAnswer: 
 --- !u!114 &70536922 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8621780836150601961, guid: 13f56db4abd27d644974fb233f5a31b3, type: 3}
@@ -399,7 +411,7 @@ MonoBehaviour:
   m_text: Enter your answers on your device
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 759265b32534ef749bffa97dfed086eb, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -2977833345673857916, guid: 759265b32534ef749bffa97dfed086eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -995,7 +1007,19 @@ MonoBehaviour:
   timer: 90
   OnTimerEnd:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 849906392}
+        m_TargetAssemblyTypeName: ScreenManager, Assembly-CSharp
+        m_MethodName: SetScreen
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: waitforacting
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &485440828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1080,7 +1104,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: waitforpromptpicking
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &591462858
@@ -1145,7 +1169,7 @@ MonoBehaviour:
 '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 759265b32534ef749bffa97dfed086eb, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -2977833345673857916, guid: 759265b32534ef749bffa97dfed086eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1509,6 +1533,12 @@ MonoBehaviour:
     screen: {fileID: 347565452}
   - name: waitforacting
     screen: {fileID: 347565452}
+  - name: waitforvoting
+    screen: {fileID: 1275896756}
+  - name: roundresults
+    screen: {fileID: 2106608832}
+  - name: gameresults
+    screen: {fileID: 2072892197}
   currentScreen: {fileID: 0}
 --- !u!4 &849906393
 Transform:
@@ -2113,7 +2143,7 @@ MonoBehaviour:
   m_text: The winner of this round is...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 759265b32534ef749bffa97dfed086eb, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -2977833345673857916, guid: 759265b32534ef749bffa97dfed086eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2249,7 +2279,7 @@ MonoBehaviour:
   m_text: What is your favorite color???
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 759265b32534ef749bffa97dfed086eb, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -2977833345673857916, guid: 759265b32534ef749bffa97dfed086eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2390,7 +2420,19 @@ MonoBehaviour:
   timer: 60
   onTimerEnd:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 849906392}
+        m_TargetAssemblyTypeName: ScreenManager, Assembly-CSharp
+        m_MethodName: SetScreen
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: roundresults
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1285980290 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8467206016986341172, guid: 13f56db4abd27d644974fb233f5a31b3, type: 3}
@@ -2464,7 +2506,7 @@ MonoBehaviour:
 '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 759265b32534ef749bffa97dfed086eb, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -2977833345673857916, guid: 759265b32534ef749bffa97dfed086eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2600,7 +2642,7 @@ MonoBehaviour:
   m_text: The question is...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 759265b32534ef749bffa97dfed086eb, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -2977833345673857916, guid: 759265b32534ef749bffa97dfed086eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
