@@ -29,6 +29,10 @@ public class GameManager : MonoBehaviour
 
     public bool initedRoles = false;
 
+    public List<int> deviceIds;
+
+    public int responseCount;
+
 
 
     List<Dictionary<int, string>> prompt_answers = new List<Dictionary<int, string>>();
@@ -58,7 +62,6 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-
         UnityEngine.TextAsset gameDataAsset = Resources.Load<UnityEngine.TextAsset>("gameData");
         gameData = JsonConvert.DeserializeObject<GameData>(gameDataAsset.text);
         availiablePrompts = Enumerable.Range(0, gameData.prompts.Count).ToList();
@@ -73,7 +76,7 @@ public class GameManager : MonoBehaviour
         return GenerateRandomSubset<int>(availiablePrompts, NUM_PROMPT_OPTIONS);
     }
 
-    public void ChoosePromt(int promptIndex)
+    public void ChoosePrompt(int promptIndex)
     {
         availiablePrompts.Remove(promptIndex);
     }
@@ -82,7 +85,14 @@ public class GameManager : MonoBehaviour
     {
         SetState(GameState.Lobby);
         airConsole.onMessage += OnMessage;
+        airConsole.onConnect += OnConnect;
         currentRound = 0;
+    }
+
+
+    //TODO FOR WHEN CHANI IS READY TO HOOK UP THE THINGY
+    public void OnConnect(int i)
+    {
     }
 
     public void SetState(GameState state)
@@ -121,8 +131,6 @@ public class GameManager : MonoBehaviour
     void InitializeLobbyState()
     {
         screenManager.SetScreen("lobby");
-
-
     }
 
 
@@ -161,13 +169,16 @@ public class GameManager : MonoBehaviour
         {
             airConsole.Message(clownIds[i], new { msg_type = "wait" });
         }
-
     }
 
     void InitializeWaitForResponse()
     {
         prompt_answers.Add(new Dictionary<int, string>());
         screenManager.SetScreen("waitForResponse");
+
+        responseCount = 0;
+
+
     }
 
     void InitializeWaitForActing()
@@ -252,6 +263,22 @@ public class GameManager : MonoBehaviour
         {
             currentPrompt = (string)data["prompt"];
             //display the prompt
+
+            //send everyone 
+
+            int heraldId = ClownShuffler.rounds[currentRound].GetHerald();
+            List<int> clownIds = ClownShuffler.rounds[currentRound].GetClowns();
+
+
+            airConsole.Message(heraldId, new { msg_type = "wait", prompts = GetPromptOptions() });
+
+            //send switch screen to Hearld for him to go prompt picking. Send seperately the five prompt indexes in a list.
+
+            for (int i = 0; i < clownIds.Count; i++)
+            {
+                airConsole.Message(clownIds[i], new { msg_type = "start_response" });
+            }
+
         }
     }
 
@@ -260,6 +287,29 @@ public class GameManager : MonoBehaviour
         if(msg_type == "prompt_answer")
         {
             prompt_answers[currentRound][from] = (string)data["answer"];
+            //add counter to get responses
+
+            responseCount += 1;
+
+            if (responseCount  == deviceIds.Count)
+            {
+                //done
+                int heraldId = ClownShuffler.rounds[currentRound].GetHerald();
+                List<int> clownIds = ClownShuffler.rounds[currentRound].GetClowns();
+
+
+                airConsole.Message(heraldId, new { msg_type = "start_acting", prompts = GetPromptOptions() });
+
+                //send switch screen to Hearld for him to go prompt picking. Send seperately the five prompt indexes in a list.
+
+                for (int i = 0; i < clownIds.Count; i++)
+                {
+                    airConsole.Message(clownIds[i], new { msg_type = "wait" });
+                }
+
+
+            }
+            //I will 
         }
     }
 
@@ -272,13 +322,14 @@ public class GameManager : MonoBehaviour
             foreach (var deviceID in deviceIDs)
             {
                 airConsole.Message(deviceID, new { msg_type = "start_voting" });
+
+
             }
         }
     }
 
     void OnMessageWaitForVoting(int from, JToken data, string msg_type)
     {
-
         ///TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if (msg_type == "vote_result")
         {
@@ -287,6 +338,7 @@ public class GameManager : MonoBehaviour
             foreach (var deviceID in deviceIDs)
             {
                 airConsole.Message(deviceID, new { msg_type = "start_voting" });
+                
             }
         }
     }
