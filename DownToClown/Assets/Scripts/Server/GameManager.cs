@@ -9,6 +9,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.U2D.Animation;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.TextCore.Text;
 using static Unity.Collections.Unicode;
 using static UnityEditor.Rendering.CameraUI;
@@ -55,7 +56,13 @@ public class GameManager : MonoBehaviour
 
     public PhoneController phoneController;
 
+    public ResultsController resultsController;
 
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
 
     public void StartGame()
@@ -92,7 +99,6 @@ public class GameManager : MonoBehaviour
         gameData = JsonConvert.DeserializeObject<GameData>(gameDataAsset.text);
         availiablePrompts = Enumerable.Range(0, gameData.prompts.Count).ToList();
 
-
         InitializeNewGame();
     }
 
@@ -113,6 +119,22 @@ public class GameManager : MonoBehaviour
         airConsole.onMessage += OnMessage;
         airConsole.onConnect += OnConnect;
         currentRound = 0;
+    }
+
+
+    public void NewRound()
+    {
+        currentRound++;
+        var deviceIDs = airConsole.GetControllerDeviceIds();
+        if (currentRound < deviceIDs.Count)
+        {
+            SetState(GameState.WaitForPromptPicking);
+            return;
+        }
+
+        //game end
+
+        SetState(GameState.GameResults);
     }
 
     public void SetState(GameState state)
@@ -304,6 +326,7 @@ public class GameManager : MonoBehaviour
     void InitializeGameResults()
     {
         screenManager.SetScreen("gameResults");
+        resultsController.Populate();
     }
 
 
@@ -510,13 +533,17 @@ public class GameManager : MonoBehaviour
                         voteResult[currentRound][ClownShuffler.rounds[currentRound].roles[deviceIDs[i]]] = 0;
                     }
                     voteResult[currentRound][ClownShuffler.rounds[currentRound].roles[deviceIDs[i]]] += voteData[i];
+
+
+
+                    if (!scores.ContainsKey(deviceIDs[i]))
+                    {
+                        scores[deviceIDs[i]] = 0;
+                    }
+
+                    scores[deviceIDs[i]] += voteData[i];
                 }
 
-                if (!scores.ContainsKey(deviceIDs[i]))
-                {
-                    scores[deviceIDs[i]] = 0;
-                }
-                scores[deviceIDs[i]] += voteData[i];
             }
 
             
@@ -533,6 +560,8 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+  
 
     IEnumerator SetNextStateAfterXSeconds(GameState state, float time)
     {
