@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
 
         while (randomSubset.Count < k && tempList.Count > 0)
         {
-            int randomIndex = UnityEngine.Random.Range(0, tempList.Count);
+            int randomIndex = Random.Range(0, tempList.Count);
             randomSubset.Add(tempList[randomIndex]);
             tempList.RemoveAt(randomIndex);
         }
@@ -109,22 +109,25 @@ public class GameManager : MonoBehaviour
             case GameState.Lobby:
                 InitializeLobbyState();
                 break;
-            case GameState.CheckRole:
-
-                if (!initedRoles)
-                {
-                    int numClowns = 6;
-
-                    ClownShuffler.SetNamesAndClowns(airConsole.GetControllerDeviceIds(), GenerateRandomSubset(numClowns-1, airConsole.GetControllerDeviceIds().Count));
-               
-                }
-
-                InitializeCheckRole();
-                break;
             case GameState.WaitForPromptPicking:
+                InitializeCheckRole();
                 InitializeWaitForPromptPicking();
                 break;
-
+            case GameState.WaitForResponse:
+                InitializeWaitForResponse();
+                break;
+            case GameState.WaitForActing:
+                InitializeWaitForActing();
+                break;
+            case GameState.WaitForVoting:
+                InitializeWaitForVoting();
+                break;
+            case GameState.RoundResults:
+                InitializeRoundResults(); 
+                break;
+            case GameState.GameResults:
+                InitializeGameResults(); 
+                break;
         }
     }
 
@@ -137,19 +140,14 @@ public class GameManager : MonoBehaviour
 
     void InitializeCheckRole()
     {
-        screenManager.SetScreen("checkRole");
 
-        var deviceIDs = airConsole.GetControllerDeviceIds();
-
-        //TODO:: WE NEED TO NOT JUST SEND ARBITRARY INDEX
-
-        var currentRoles = ClownShuffler.rounds[currentRound].roles;
-
-        for(int i = 0; i < deviceIDs.Count; i++)
+        if (!initedRoles)
         {
-            int roleIndex = currentRoles[deviceIDs[i]];
-            airConsole.Message(deviceIDs[i], new { msg_type = "role_assignment", role = gameData.characters[roleIndex]});
+            int numClowns = 6;
+            ClownShuffler.SetNamesAndClowns(airConsole.GetControllerDeviceIds(), GenerateRandomSubset(numClowns - 1, airConsole.GetControllerDeviceIds().Count));
+            initedRoles = true;
         }
+
     }
 
     void InitializeWaitForPromptPicking()
@@ -161,14 +159,13 @@ public class GameManager : MonoBehaviour
 
         //send switch screen to everyone who is not heard to waiting screen just have {msg_type = "switch_screen", screen = "waiting"}
 
-        airConsole.Message(heraldId, new { msg_type = "prompt_picking", prompts = GetPromptOptions() });
-
-        //send switch screen to Hearld for him to go prompt picking. Send seperately the five prompt indexes in a list.
-
-        for(int i = 0; i < clownIds.Count; i++)
+        for (int i = 0; i < clownIds.Count; i++)
         {
-            airConsole.Message(clownIds[i], new { msg_type = "wait" });
+            airConsole.Message(clownIds[i], new { msg_type = "role_assignment", role = gameData.characters[clownIds[i]] });
         }
+
+
+        airConsole.Message(heraldId, new { msg_type = "prompt_picking", role = gameData.characters[heraldId], prompts = GetPromptOptions() });
     }
 
     void InitializeWaitForResponse()
@@ -177,8 +174,6 @@ public class GameManager : MonoBehaviour
         screenManager.SetScreen("waitForResponse");
 
         responseCount = 0;
-
-
     }
 
     void InitializeWaitForActing()
@@ -291,17 +286,16 @@ public class GameManager : MonoBehaviour
 
             responseCount += 1;
 
-            if (responseCount  == deviceIds.Count)
+            if (responseCount  >= deviceIds.Count-1)
             {
+
                 //done
                 int heraldId = ClownShuffler.rounds[currentRound].GetHerald();
                 List<int> clownIds = ClownShuffler.rounds[currentRound].GetClowns();
 
-
                 airConsole.Message(heraldId, new { msg_type = "start_acting", prompts = GetPromptOptions() });
 
-                //send switch screen to Hearld for him to go prompt picking. Send seperately the five prompt indexes in a list.
-
+                //send switch screen to Hearld for him to go prompt picking. Send seperately the five prompt indexes in a list
                 for (int i = 0; i < clownIds.Count; i++)
                 {
                     airConsole.Message(clownIds[i], new { msg_type = "wait" });
