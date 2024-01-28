@@ -37,6 +37,12 @@ public class GameManager : MonoBehaviour
 
     List<Dictionary<int, string>> prompt_answers = new List<Dictionary<int, string>>();
 
+
+    public void StartGame()
+    {
+        SetState(GameState.WaitForPromptPicking);
+    }
+
     public List<T> GenerateRandomSubset<T>(List<T> list, int k)
     {
         var randomSubset = new List<T>();
@@ -93,6 +99,8 @@ public class GameManager : MonoBehaviour
     //TODO FOR WHEN CHANI IS READY TO HOOK UP THE THINGY
     public void OnConnect(int i)
     {
+
+
     }
 
     public void SetState(GameState state)
@@ -237,6 +245,12 @@ public class GameManager : MonoBehaviour
             case GameState.WaitForVoting:
                 OnMessageWaitForVoting(from, data, msg_type);
                 break;
+            case GameState.RoundResults:
+                OnMessageRoundResults(from, data, msg_type);
+                break;
+            case GameState.GameResults:
+                OnMessageGameResults(from, data, msg_type);
+                break;
 
         }
 
@@ -288,8 +302,6 @@ public class GameManager : MonoBehaviour
 
             if (responseCount  >= deviceIds.Count-1)
             {
-
-                //done
                 int heraldId = ClownShuffler.rounds[currentRound].GetHerald();
                 List<int> clownIds = ClownShuffler.rounds[currentRound].GetClowns();
 
@@ -300,8 +312,6 @@ public class GameManager : MonoBehaviour
                 {
                     airConsole.Message(clownIds[i], new { msg_type = "wait" });
                 }
-
-
             }
             //I will 
         }
@@ -316,7 +326,6 @@ public class GameManager : MonoBehaviour
             foreach (var deviceID in deviceIDs)
             {
                 airConsole.Message(deviceID, new { msg_type = "start_voting" });
-
 
             }
         }
