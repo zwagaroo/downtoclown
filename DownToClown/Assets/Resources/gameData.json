@@ -19,7 +19,7 @@
       "name": "Harold the herald",
       "description": "He thought this was normal speed dating.",
       "rule": "Read the messages sent to the screen.",
-      "iconImage": "herald1.png",
+      "iconImage": "/herald1.png",
       "descriptionImage": "/herald2.png",
       "profileImage": "/herald3.png"
     },

@@ -1706,7 +1706,7 @@ MonoBehaviour:
   androidTvGameVersion: 
   androidUIResizeMode: 0
   webViewLoadingSprite: {fileID: 0}
-  browserStartMode: 3
+  browserStartMode: 0
   devGameId: 
   LocalIpOverride: https://cds-sales-attorneys-composer.trycloudflare.com
 --- !u!4 &635519550
