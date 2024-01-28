@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      standupclownicon_0: 3887521023095362646
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
