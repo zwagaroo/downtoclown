@@ -195,31 +195,6 @@ public class GameManager : MonoBehaviour
         //send switch screen to everyone who is not heard to waiting screen just have {msg_type = "switch_screen", screen = "waiting"}
 
 
-        /*        foreach (int id in clownIds)
-                {
-                    Debug.Log("role assignment to id " + id);
-
-                    airConsole.Message(id,
-                        new
-                        {
-                            msg_type = "role_assignment",
-                            role = gameData.characters[round.roles[id]]
-                        });
-                }
-
-                Debug.Log("prompt picking " + heraldId);
-                airConsole.Message(heraldId,
-                        new
-                        {
-                            msg_type = "prompt_picking",
-                            role = gameData.characters[round.roles[heraldId]],
-                            prompts = GetPromptOptions()
-                        });*/
-
-        StartCoroutine(Test(clownIds, round, heraldId));
-    }
-
-    IEnumerator Test(List<int> clownIds, Round round, int heraldId) {
         foreach (int id in clownIds)
         {
             Debug.Log("role assignment to id " + id);
@@ -230,8 +205,6 @@ public class GameManager : MonoBehaviour
                     msg_type = "role_assignment",
                     role = gameData.characters[round.roles[id]]
                 });
-
-            yield return new WaitForSeconds(.5f);
         }
 
         List<string> prompts = new List<string>();
@@ -250,6 +223,10 @@ public class GameManager : MonoBehaviour
                     prompts = prompts
                 });
     }
+/*
+    IEnumerator Test(List<int> clownIds, Round round, int heraldId) {
+
+    }*/
 
     void InitializeWaitForResponse()
     {
@@ -530,8 +507,13 @@ public class GameManager : MonoBehaviour
                 }
             }
 
+            responseCount++;
+
             if (responseCount >= deviceIDs.Count)
             {
+
+                //phone down, wait for a second and then set next state
+
                 SetState(GameState.RoundResults);
             }
         }
