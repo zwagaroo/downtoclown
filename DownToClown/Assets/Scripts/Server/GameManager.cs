@@ -215,13 +215,20 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(.5f);
         }
 
+        List<string> prompts = new List<string>();
+        List<int> prompt_indicies = GetPromptOptions();
+        for (int i = 0; i < prompt_indicies.Count; i++)
+        {
+            prompts.Add(gameData.prompts[prompt_indicies[i]]);
+        }
+
         Debug.Log("prompt picking " + heraldId);
         airConsole.Message(heraldId,
                 new
                 {
                     msg_type = "prompt_picking",
                     role = gameData.characters[round.roles[heraldId]],
-                    prompts = GetPromptOptions()
+                    prompts = prompts
                 });
     }
 
