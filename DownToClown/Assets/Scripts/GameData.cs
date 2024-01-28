@@ -59,6 +59,12 @@ public class Character
         this.profileImage = character.profileImage;
     }
 
+
+    public Character()
+    {
+
+    }
+
     public static string[] clownSoundEffects = {
         "Honk",
         "Squeak",
