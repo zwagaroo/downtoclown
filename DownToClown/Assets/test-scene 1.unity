@@ -262,6 +262,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &160787424
 Canvas:
   m_ObjectHideFlags: 0
@@ -579,7 +580,7 @@ MonoBehaviour:
   webViewLoadingSprite: {fileID: 0}
   browserStartMode: 2
   devGameId: 
-  LocalIpOverride: https://pn-statutes-plans-growing.trycloudflare.com
+  LocalIpOverride: https://are-infringement-legislative-saves.trycloudflare.com
 --- !u!4 &635519550
 Transform:
   m_ObjectHideFlags: 0
@@ -772,7 +773,14 @@ MonoBehaviour:
   currentState: 0
   airConsole: {fileID: 635519549}
   screenManager: {fileID: 849906392}
-  prompts: []
+  gameData:
+    prompts: []
+    characters: []
+  currentRound: 0
+  currentPrompt: 
+  initedRoles: 0
+  deviceIds: 
+  responseCount: 0
 --- !u!4 &923816380
 Transform:
   m_ObjectHideFlags: 0

@@ -4,6 +4,15 @@
     <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.8.0.js"></script>
     <style type="text/css">
       /* the style sheet dictates what our elements (buttons, backgrounds etc.) will look like. */
+
+      #role-change {
+          border: 5px solid;
+          position: absolute;
+          top: 50%;
+          transform: translate(0, -50%);
+          padding: 10px;
+      }
+
       #interact-button{
           background-image: url("button.png");
           position: absolute;
@@ -14,6 +23,13 @@
           background-size: contain;
           background-repeat: no-repeat;
       }
+
+      @font-face {
+          font-family: "bubble-rainbow";
+          src: url("bubble-rainbow.ttf");
+      }
+
+
     </style>
 
     <script type="text/javascript" src="./airconsole-view-manager.js"></script>
@@ -21,7 +37,13 @@
     <script type="text/javascript">
       var airconsole;
       let viewmanager = null;
-      let role = -1;
+      let role = null;
+      let roleName = "";
+      let roleRule = "";
+      let roleDescription = "";
+      let descriptionImage = "";
+
+      let prompts = null;
 
       function App() {
           /* JavaScript / Functionality. Add functions and evens here */
@@ -35,12 +57,27 @@
               case "role_assignment":
                   console.log("ROLE CHANGE");
 
-                  role = data["role_index"];
+                  role = data["role"];
+                  roleName = role.name;
+                  roleRule = role.rule;
+                  roleDescription = role.description;
+                  roleDescriptionImage = role.descriptionImage;
+
                   viewmanager.controllersShow('role-change');
-                  document.getElementById("myRole").innerHTML = role;
+                  document.getElementById("myRole").innerHTML = roleName;
+                  document.getElementById("myRoleDescription").innerHTML = roleDescription;
 
                   break;
+              case "prompt_picking":
+                  prompts = data["prompts"];
+                  console.log(prompts);
+                  document.getElementById("prompt-1").innerHTML = "hi hi hi hi hi ";
+                  document.getElementById("prompt-2").innerHTML = "bye alskdjaslkdjasd n";
+                  document.getElementById("prompt-3").innerHTML = "screeN alskdjasldk";
+                  document.getElementById("prompt-4").innerHTML = "LOLOOL alskdjaslkdjasd";
+                  document.getElementById("prompt-5").innerHTML = "GODODO alskjdalskdjalskdj";
               }
+
           };
 
           /*
@@ -68,23 +105,92 @@
           }
       }
 
-      // Javascript
-      var message = {
-          'msg_type': 'switch_state',
-          'info': { 'amount': 5, 'torque': 234.8 }
+      App.prototype.sendMessageToScreen = function(msg) {
+          var message = {
+              "msg_type": "switch_state",
+          }
+          console.log(msg);
+          this.airconsole.message(AirConsole.SCREEN, message);
       };
 
-      App.prototype.sendMessageToScreen = function(msg) {
+      App.prototype.sendPickedPrompt = function(prompt) {
+          var message = {
+              'msg_type': 'prompt_picked',
+              'prompt': prompt,
+          };
           console.log(message);
           this.airconsole.message(AirConsole.SCREEN, message);
       };
+
+      App.prototype.sendPromptAnswer = function(answer) {
+          var message = {
+              'msg_type': 'prompt_answer',
+              'answer': answer,
+          };
+          console.log(message);
+          this.airconsole.message(AirConsole.SCREEN, message);
+      };
+
+      function submitAnswer() {
+          let x = document.getElementById("myText").value;
+          console.log(x);
+          window.app.sendMessageToScreen(x);
+      }
+      function submitPrompt(buttonNumber) {
+          let x = document.getElementById(buttonNumber).textContent;
+          console.log(x.trim());
+          // window.app.sendMessageToScreen(x);
+      }
     </script>
   </head>
-  <body onload="window.app = new App()">
-    <div id="interact-button" class="view default-view" ontouchstart="window.app.sendMessageToScreen('interact')"></div>
+
+  <body onload="window.app = new App()" style="font-family: bubble-rainbow">
+    <div id="lobby-waiting" class="view default-view">
+      LOBBY HERE.
+    </div>
+
+    <div id="prompt-picking" class="view">
+      <ul>
+        <li>
+          <button id="prompt-1" type="button" ontouchstart="submitPrompt('prompt-1')">
+          </button>
+        </li>
+        <li>
+          <button id="prompt-2" type="button" ontouchstart="submitPrompt('prompt-2')">
+          </button>
+        </li>
+
+        <li>
+          <button id="prompt-3" type="button" ontouchstart="submitPrompt('prompt-3')">
+          </button>
+        </li>
+
+        <li>
+          <button id="prompt-4" type="button" ontouchstart="submitPrompt('prompt-4')">
+          </button>
+        </li>
+
+        <li>
+          <button id="prompt-5" type="button" ontouchstart="submitPrompt('prompt-5')">
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <div id="prompt-answer" class="view">
+      <input type="text" id="myText">
+      <button type="button" ontouchstart="submitAnswer()">
+        Submit
+      </button>
+    </div>
+
+    <div id="interact-button" class="view" ontouchstart="window.app.sendMessageToScreen('interact')"></div>
 
     <div id="role-change" class="view">
       <h1>Your role is: <span id="myRole"></span></h1>
+      <h2><span id="myRoleDescription"></span></h2>
+
+      <img src="jester-image.png" width="300" height="300" alt="">
     </div>
 
     <div id="voting-screen" class="view">
