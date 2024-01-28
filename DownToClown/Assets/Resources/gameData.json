@@ -72,7 +72,7 @@
       "id": 6,
       "name": "The Slapstick-er",
       "description": "You have many positive traits. Neither coordination nor balance are part of that list.",
-      "rule": "Uses words honk, bang, and boing.",
+      "rule": "Uses words {sound}, {sound}, and {sound}.",
       "iconImage": "/slapstick1.png",
       "descriptionImage": "/slapstick2.png",
       "profileImage": "/slapstick3.png"
