@@ -204,7 +204,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 485440833}
         m_TargetAssemblyTypeName: LobbyScreen, Assembly-CSharp
-        m_MethodName: BeginCountdown
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1302,9 +1302,9 @@ MonoBehaviour:
   androidTvGameVersion: 
   androidUIResizeMode: 0
   webViewLoadingSprite: {fileID: 0}
-  browserStartMode: 0
+  browserStartMode: 2
   devGameId: 
-  LocalIpOverride: https://sports-frontpage-has-sympathy.trycloudflare.com
+  LocalIpOverride: https://lexmark-filled-noise-salon.trycloudflare.com
 --- !u!4 &635519550
 Transform:
   m_ObjectHideFlags: 0
@@ -1549,10 +1549,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screens:
   - name: lobby
-    screen: {fileID: 0}
-  - name: waitforpromptpicking
+    screen: {fileID: 485440833}
+  - name: waitForPromptPicking
     screen: {fileID: 1799163459}
-  - name: waitforresponse
+  - name: waitForResponse
     screen: {fileID: 347565452}
   - name: waitforacting
     screen: {fileID: 347565452}
@@ -1613,6 +1613,7 @@ MonoBehaviour:
   gameData:
     prompts: []
     characters: []
+  lobbyScreen: {fileID: 485440833}
   currentRound: 0
   currentPrompt: 
   initedRoles: 0

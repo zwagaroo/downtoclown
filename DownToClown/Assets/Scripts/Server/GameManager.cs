@@ -9,6 +9,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using static Unity.Collections.Unicode;
 using static UnityEditor.Rendering.CameraUI;
 
 public enum GameState { Lobby, CheckRole, WaitForPromptPicking, WaitForResponse, WaitForActing, WaitForVoting, RoundResults, GameResults};
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
     public AirConsole airConsole;
     public ScreenManager screenManager;
     public GameData gameData;
+    public LobbyScreen lobbyScreen;
 
     List<int> availiablePrompts;
 
@@ -37,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     List<Dictionary<int, string>> prompt_answers = new List<Dictionary<int, string>>();
 
+    
 
     public void StartGame()
     {
@@ -99,8 +102,7 @@ public class GameManager : MonoBehaviour
     //TODO FOR WHEN CHANI IS READY TO HOOK UP THE THINGY
     public void OnConnect(int i)
     {
-
-
+        lobbyScreen.AddPlayer();
     }
 
     public void SetState(GameState state)
@@ -151,8 +153,12 @@ public class GameManager : MonoBehaviour
 
         if (!initedRoles)
         {
-            int numClowns = 6;
-            ClownShuffler.SetNamesAndClowns(airConsole.GetControllerDeviceIds(), GenerateRandomSubset(numClowns - 1, airConsole.GetControllerDeviceIds().Count));
+            int numCharacters = gameData.characters.Count;
+            int numPlayers = airConsole.GetControllerDeviceIds().Count;
+
+            List<int> characters = GenerateRandomSubset(Enumerable.Range(1, numCharacters - 1).ToList(), numPlayers - 1);
+            characters.Add(0);
+            ClownShuffler.SetNamesAndClowns(airConsole.GetControllerDeviceIds(), characters);
             initedRoles = true;
         }
 
@@ -162,18 +168,28 @@ public class GameManager : MonoBehaviour
     {
         screenManager.SetScreen("waitForPromptPicking");
 
-        int heraldId = ClownShuffler.rounds[currentRound].GetHerald();
-        List<int> clownIds = ClownShuffler.rounds[currentRound].GetClowns();
+        Round round = ClownShuffler.rounds[currentRound];
+        int heraldId = round.GetHerald();
+        List<int> clownIds = round.GetClowns();
 
         //send switch screen to everyone who is not heard to waiting screen just have {msg_type = "switch_screen", screen = "waiting"}
 
-        for (int i = 0; i < clownIds.Count; i++)
+        foreach (int id in clownIds)
         {
-            airConsole.Message(clownIds[i], new { msg_type = "role_assignment", role = gameData.characters[clownIds[i]] });
+            airConsole.Message(id,
+                new { msg_type = "role_assignment",
+                          role = gameData.characters[round.roles[id]] });
         }
 
+        airConsole.Message(heraldId,
+                new
+                {
+                    msg_type = "prompt_picking",
+                    role = gameData.characters[round.roles[heraldId]],
+                    prompts = GetPromptOptions()
+                });
 
-        airConsole.Message(heraldId, new { msg_type = "prompt_picking", role = gameData.characters[heraldId], prompts = GetPromptOptions() });
+       
     }
 
     void InitializeWaitForResponse()
@@ -278,15 +294,20 @@ public class GameManager : MonoBehaviour
             int heraldId = ClownShuffler.rounds[currentRound].GetHerald();
             List<int> clownIds = ClownShuffler.rounds[currentRound].GetClowns();
 
-
-            airConsole.Message(heraldId, new { msg_type = "wait", prompts = GetPromptOptions() });
-
-            //send switch screen to Hearld for him to go prompt picking. Send seperately the five prompt indexes in a list.
-
-            for (int i = 0; i < clownIds.Count; i++)
+            foreach (int id in clownIds)
             {
-                airConsole.Message(clownIds[i], new { msg_type = "start_response" });
+                airConsole.Message(id,
+                    new
+                    {
+                        msg_type = "start_response"
+                    });
             }
+
+            airConsole.Message(heraldId,
+                    new
+                    {
+                        msg_type = "wait"
+                    });
 
         }
     }

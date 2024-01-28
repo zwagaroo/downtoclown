@@ -25,9 +25,18 @@
     },
     {
       "id": 1,
-      "name": "Jester",
-      "description": "They used to serve a king. But now he's ready to serve you ;)",
-      "rule": "Your response must rhyme.",
+      "name": "The Jester",
+      "description": "You used to serve a king. But now you're ready to serve someone else ;)",
+      "rule": "Only speaks in rhymes.",
+      "iconImage": "jester_icon.png",
+      "descriptionImage": "jester_description.png",
+      "profileImage": "jester_profile.png"
+    },
+    {
+      "id": 2,
+      "name": "The Mime",
+      "description": "You used to serve a king. But now you're ready to serve someone else",
+      "rule": "Only speaks in rhymes.",
       "iconImage": "jester_icon.png",
       "descriptionImage": "jester_description.png",
       "profileImage": "jester_profile.png"

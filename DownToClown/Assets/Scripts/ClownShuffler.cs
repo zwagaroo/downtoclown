@@ -103,45 +103,45 @@ public class ClownShuffler : MonoBehaviour
             rounds.Add(new Round());
         }
 
-        foreach (var player in players)
+        for (int round = 0; round < players.Count; round++)
         {
-            for (int round = 0; round < players.Count; round++)
+            for (int player = 0; player < players.Count; player++)
             {
-                rounds[round].roles[player] = Round.PickRandomCharacter(rounds, player, round, characters);
+                rounds[round].roles[player] = (round + player) % players.Count;
             }
         }
     }
-/*
-    public void Start()
-    {
-        // Create some sample players and characters
-        List<int> players = new List<int>
+    /*
+        public void Start()
         {
-            new int { name = "int1" },
-            new int { name = "int2" },
-            new int { name = "int3" },
-            new int { name = "int4" }
-        };
-
-        List<int> characters = new List<int>
-        {
-            new int { name = "Character1" },
-            new int { name = "Character2" },
-            new int { name = "Character3" },
-            new int { name = "Character4" }
-        };
-
-        // Set names and clowns
-        SetNamesAndClowns(players, characters);
-
-        // Print out the mappings for each round
-        for (int round = 0; round < rounds.Count; round++)
-        {
-            Debug.Log("Round " + (round + 1) + " mappings:");
-            foreach (var kvp in rounds[round].roles)
+            // Create some sample players and characters
+            List<int> players = new List<int>
             {
-                Debug.Log(kvp.Key.name + " - " + kvp.Value.name);
+                new int { name = "int1" },
+                new int { name = "int2" },
+                new int { name = "int3" },
+                new int { name = "int4" }
+            };
+
+            List<int> characters = new List<int>
+            {
+                new int { name = "Character1" },
+                new int { name = "Character2" },
+                new int { name = "Character3" },
+                new int { name = "Character4" }
+            };
+
+            // Set names and clowns
+            SetNamesAndClowns(players, characters);
+
+            // Print out the mappings for each round
+            for (int round = 0; round < rounds.Count; round++)
+            {
+                Debug.Log("Round " + (round + 1) + " mappings:");
+                foreach (var kvp in rounds[round].roles)
+                {
+                    Debug.Log(kvp.Key.name + " - " + kvp.Value.name);
+                }
             }
-        }
-    }*/
+        }*/
 }

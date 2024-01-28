@@ -44,7 +44,8 @@ public class ScreenManager : MonoBehaviour
 
         if (!screen)
         {
-            Debug.Log("YOU MESSED UP THE SCREEN NAME!!!!");
+
+            Debug.Log("YOU MESSED UP THE SCREEN NAME!!!! What is " + screenName);
             return;
         }
 
