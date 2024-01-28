@@ -4,20 +4,12 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 
+[System.Serializable]
 public class Profile
 {
-    public string name;
-    public Sprite portrait;
+    public Character character;
     public string prompt;
     public string promptAnswer;
-
-    public Profile(string newname, Sprite newportrait, string newprompt, string newpromptAnswer)
-    {
-        name = newname;
-        portrait = newportrait;
-        prompt = newprompt;
-        promptAnswer = newpromptAnswer;
-    }
 }
 
 public class WaitForActingScreen : GameScreen
@@ -30,6 +22,14 @@ public class WaitForActingScreen : GameScreen
     public List<Profile> profiles;
     public bool onCountdown;
 
+
+    public Profile testProfile;
+
+    public void OnValidate()
+    {
+        SetProfile(testProfile);
+    }
+
     public void HideProfile()
     {
         profile.SetActive(false);
@@ -39,8 +39,11 @@ public class WaitForActingScreen : GameScreen
         profile.SetActive(true);
     }
 
-    public void AddProfileTolist()
+    public void SetProfile(Profile p)
     {
-
+        name.text = p.character.name;
+        portrait.sprite = p.character.GetProfileSprite();
+        prompt.text = p.prompt;
+        promptAnswer.text = p.promptAnswer;
     }
 }

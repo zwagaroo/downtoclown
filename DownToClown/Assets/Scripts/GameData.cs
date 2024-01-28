@@ -20,4 +20,27 @@ public class Character
     public string iconImage;
     public string descriptionImage;
     public string profileImage;
+
+    private Sprite LoadSprite(string imagePath)
+    {
+        return Resources.Load<Sprite>(imagePath);
+    }
+
+    // Get icon sprite
+    public Sprite GetIconSprite()
+    {
+        return LoadSprite(iconImage);
+    }
+
+    // Get description sprite
+    public Sprite GetDescriptionSprite()
+    {
+        return LoadSprite(descriptionImage);
+    }
+
+    // Get profile sprite
+    public Sprite GetProfileSprite()
+    {
+        return LoadSprite(profileImage);
+    }
 }
