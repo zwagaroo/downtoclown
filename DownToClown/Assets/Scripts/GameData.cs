@@ -100,7 +100,7 @@ public class Character
 
     static string ReplaceSounds(string text, int round)
     {
-        int seed = (int)DateTime.Now.Ticks & 0x0000FFFF + round;
+        int seed = (int)GameManager.time & 0x0000FFFF + round;
         Random random = new Random(seed);
         string pattern = @"\{sound\}";
 

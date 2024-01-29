@@ -28,7 +28,7 @@ public class WaitForResponseScreen : GameScreen
 
             if (Mathf.CeilToInt(timer) <= 0)
             {
-                OnTimerEnd.Invoke();
+                timer = 0;
             }
         }
     }

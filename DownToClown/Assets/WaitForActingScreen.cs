@@ -45,7 +45,7 @@ public class WaitForActingScreen : GameScreen
     }
     public void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow)) {
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) {
             if(currentProfileIndex == 0)
             {
                 return;
@@ -56,7 +56,7 @@ public class WaitForActingScreen : GameScreen
 
         }
 
-        if (Input.GetKey(KeyCode.RightArrow)){
+        if (Input.GetKeyDown(KeyCode.RightArrow)){
 
             if (currentProfileIndex >= (profiles.Count - 1))
             {
@@ -76,6 +76,7 @@ public class WaitForActingScreen : GameScreen
 
     public void CreateProfileList()
     {
+        profiles = new List<Profile>();
         var deviceIDs = gameManager.airConsole.GetControllerDeviceIds();
 
         foreach(var deviceID in deviceIDs)
@@ -85,6 +86,10 @@ public class WaitForActingScreen : GameScreen
 
             if (roleIndex != 0)
             {
+                if (!gameManager.prompt_answers[gameManager.currentRound].ContainsKey(deviceID))
+                {
+                    gameManager.prompt_answers[gameManager.currentRound][deviceID] = "";
+                }
                 profiles.Add(new Profile(gameManager.gameData.characters[roleIndex], gameManager.currentPrompt, gameManager.prompt_answers[gameManager.currentRound][deviceID]));
             }
         }

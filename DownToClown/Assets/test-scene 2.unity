@@ -1194,9 +1194,9 @@ MonoBehaviour:
           m_StringArgument: waitforacting
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 20357710}
-        m_TargetAssemblyTypeName: WaitForActingScreen, Assembly-CSharp
-        m_MethodName: CreateProfileList
+      - m_Target: {fileID: 923816379}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: StopWaitingForResponse
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1740,7 +1740,7 @@ MonoBehaviour:
   androidTvGameVersion: 
   androidUIResizeMode: 0
   webViewLoadingSprite: {fileID: 0}
-  browserStartMode: 0
+  browserStartMode: 3
   devGameId: 
   LocalIpOverride: https://tomato-tramadol-antiques-libraries.trycloudflare.com
 --- !u!4 &635519550
@@ -2304,7 +2304,8 @@ MonoBehaviour:
   waitForActingScreen: {fileID: 20357710}
   roundResultsScreen: {fileID: 553513981}
   phoneController: {fileID: 1654924121}
-  resultsController: {fileID: 0}
+  resultsController: {fileID: 182459064}
+  waitForResponseScreen: {fileID: 347565452}
 --- !u!4 &923816380
 Transform:
   m_ObjectHideFlags: 0
@@ -2683,7 +2684,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -77}
+  m_AnchoredPosition: {x: 0, y: 45.19}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1171428943
@@ -2707,7 +2708,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 75, y: 75}
-  m_Spacing: {x: 0, y: 0}
+  m_Spacing: {x: 56, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 6
 --- !u!1 &1175037288
@@ -3703,7 +3704,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -495, y: 391}
+  m_AnchoredPosition: {x: -7, y: 112}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1543288513
@@ -3762,8 +3763,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -3793,10 +3794,10 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 150.98177, w: 0}
+  m_margin: {x: 0, y: 0, z: 1.2717705, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1543288514

@@ -99,13 +99,21 @@
                   break;
               case "start_response":
                   console.log("RESPONDING");
+                  document.getElementById("myText").value = "";
                   viewmanager.controllersShow('prompt-answer');
+
+                  setTimeout(
+                    ()=> {
+                      submitAnswer();
+                    },
+                    90000
+                  );
 
                   break;
               case "start_acting":
                   console.log("Acting");
                   viewmanager.controllersShow('acting');
-
+                  
                   break;
 
               case "start_voting":
@@ -116,7 +124,7 @@
               case "wait":
                   console.log("WAITING");
                   viewmanager.controllersShow('waiting');
-
+                    
                   break;
               }
           };

@@ -2,11 +2,13 @@ using JetBrains.Annotations;
 using NDream.AirConsole;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 
 
 [System.Serializable]
@@ -53,6 +55,10 @@ public class GameManager : MonoBehaviour
 
     public ResultsController resultsController;
 
+    public WaitForResponseScreen waitForResponseScreen;
+
+    public static float time;
+
 
     public void Restart()
     {
@@ -74,7 +80,7 @@ public class GameManager : MonoBehaviour
 
         while (randomSubset.Count < k && tempList.Count > 0)
         {
-            int randomIndex = Random.Range(0, tempList.Count);
+            int randomIndex = UnityEngine.Random.Range(0, tempList.Count);
             randomSubset.Add(tempList[randomIndex]);
             tempList.RemoveAt(randomIndex);
         }
@@ -114,6 +120,8 @@ public class GameManager : MonoBehaviour
         airConsole.onMessage += OnMessage;
         airConsole.onConnect += OnConnect;
         currentRound = 0;
+
+        time = DateTime.Now.Ticks;
     }
 
 
@@ -251,6 +259,7 @@ public class GameManager : MonoBehaviour
 
     void InitializeWaitForResponse()
     {
+        waitForResponseScreen.ResetCountdown();
         prompt_answers.Add(new Dictionary<int, string>());
         screenManager.SetScreen("waitForResponse");
 
@@ -422,20 +431,19 @@ public class GameManager : MonoBehaviour
     }
     public void StopWaitingForResponse()
     {
-        if (currentState == GameState.WaitForResponse)
+        Debug.Log("feasfe");
+        int heraldId = ClownShuffler.rounds[currentRound].GetHerald();
+        List<int> clownIds = ClownShuffler.rounds[currentRound].GetClowns();
+
+        airConsole.Message(heraldId, new { msg_type = "start_acting", prompts = GetPromptOptions() });
+
+        //send switch screen to Hearld for him to go prompt picking. Send seperately the five prompt indexes in a list
+        for (int i = 0; i < clownIds.Count; i++)
         {
-            int heraldId = ClownShuffler.rounds[currentRound].GetHerald();
-            List<int> clownIds = ClownShuffler.rounds[currentRound].GetClowns();
-
-            airConsole.Message(heraldId, new { msg_type = "start_acting", prompts = GetPromptOptions() });
-
-            //send switch screen to Hearld for him to go prompt picking. Send seperately the five prompt indexes in a list
-            for (int i = 0; i < clownIds.Count; i++)
-            {
-                airConsole.Message(clownIds[i], new { msg_type = "wait" });
-            }
-            SetState(GameState.WaitForActing);
+            airConsole.Message(clownIds[i], new { msg_type = "wait" });
         }
+
+        SetState(GameState.WaitForActing);
     }
 
     void OnMessageWaitForResponse(int from, JToken data, string msg_type)
@@ -519,15 +527,22 @@ public class GameManager : MonoBehaviour
             var deviceIDs = airConsole.GetControllerDeviceIds();
             int[] voteData = data["vote_data"].ToObject<int[]>();
 
+            int heraldOffset = 0;
+
+            
+
             for(int i = 0; i < deviceIDs.Count; i++)
             {
+
+
                 if (ClownShuffler.rounds[currentRound].roles[deviceIDs[i]] != 0)
                 {
                     if (!voteResult[currentRound].ContainsKey(ClownShuffler.rounds[currentRound].roles[deviceIDs[i]]))
                     {
                         voteResult[currentRound][ClownShuffler.rounds[currentRound].roles[deviceIDs[i]]] = 0;
                     }
-                    voteResult[currentRound][ClownShuffler.rounds[currentRound].roles[deviceIDs[i]]] += voteData[i];
+
+                    voteResult[currentRound][ClownShuffler.rounds[currentRound].roles[deviceIDs[i]]] += voteData[i + heraldOffset];
 
 
 
@@ -536,7 +551,11 @@ public class GameManager : MonoBehaviour
                         scores[deviceIDs[i]] = 0;
                     }
 
-                    scores[deviceIDs[i]] += voteData[i];
+                    scores[deviceIDs[i]] += voteData[i+ heraldOffset];
+                }
+                else
+                {
+                    heraldOffset = -1;
                 }
 
             }
