@@ -57,6 +57,8 @@
 
       let prompts = null;
 
+      let submitTimeOut;
+
       function App() {
 
           this.airconsole = new AirConsole({"orientation" : "portrait"});
@@ -102,8 +104,9 @@
                   document.getElementById("myText").value = "";
                   viewmanager.controllersShow('prompt-answer');
 
-                  setTimeout(
+                  submitTimeOut = setTimeout(
                     ()=> {
+
                       submitAnswer();
                     },
                     90000
@@ -183,6 +186,8 @@
           window.app.sendPromptAnswer(x);
 
           viewmanager.controllersShow("waiting");
+
+          clearTimeout(submitTimeOut);
       }
 
       function submitPrompt(buttonNumber) {

@@ -1740,9 +1740,9 @@ MonoBehaviour:
   androidTvGameVersion: 
   androidUIResizeMode: 0
   webViewLoadingSprite: {fileID: 0}
-  browserStartMode: 3
+  browserStartMode: 0
   devGameId: 
-  LocalIpOverride: https://tomato-tramadol-antiques-libraries.trycloudflare.com
+  LocalIpOverride: 
 --- !u!4 &635519550
 Transform:
   m_ObjectHideFlags: 0
